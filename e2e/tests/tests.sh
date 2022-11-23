@@ -1,7 +1,7 @@
 #!/bin/bash
 
-current=""
-next=""
+current=0
+next=0
 
 while ! timeout 1 bash -c "echo > /dev/tcp/vote/80"; do
     sleep 1
@@ -11,6 +11,9 @@ done
 curl -sS -X POST --data "vote=a" http://vote > /dev/null
 
 current=`phantomjs render.js "http://result:4000/" | grep -i vote | cut -d ">" -f 4 | cut -d " " -f1`
+echo $current
+if [ -z "$current" ]; then current=0; else echo "Not NULL"; fi
+
 next=`echo "$(($current + 1))"`
 
   echo -e "\n\n-----------------"
@@ -23,6 +26,9 @@ curl -sS -X POST --data "vote=b" http://vote > /dev/null
 sleep 3
 
 new=`phantomjs render.js "http://result:4000/" | grep -i vote | cut -d ">" -f 4 | cut -d " " -f1`
+
+if [ -z "$new" ]; then new=`echo "$(($next))"`; else echo "Not NULL"; fi
+
 
 
   echo -e "\n\n-----------------"
