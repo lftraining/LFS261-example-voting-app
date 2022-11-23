@@ -1,5 +1,3 @@
-version: '2'
-
 services:
 
   e2e:
@@ -12,6 +10,7 @@ services:
       - redis
     networks:
       - front-tier
+      - back-tier
 
   vote:
     image: ${VOTE_IMAGE}
@@ -32,6 +31,8 @@ services:
     networks:
       - front-tier
       - back-tier
+    environment:
+      - ENV OPENSSL_CONF=/dev/null
 
   worker:
     image: ${WORKER_IMAGE}
@@ -51,6 +52,8 @@ services:
     image: postgres:9.4
     networks:
       - back-tier
+    environment: 
+      - POSTGRES_HOST_AUTH_METHOD=trust
 
 volumes:
   db-data:
