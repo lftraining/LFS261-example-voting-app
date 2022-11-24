@@ -28,7 +28,7 @@ sleep 3
 
 new=`phantomjs render.js "http://result:4000/" | grep -i vote | cut -d ">" -f 4 | cut -d " " -f1`
 
-if [ -z "$new" ]; then new=`echo "$(($next))"`; else echo "Not NULL"; fi
+if [ -z "$new" ]; then new=$next; else echo "Not NULL"; fi
 
 
 
