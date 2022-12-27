@@ -1,7 +1,7 @@
 Example Voting App
 =========
 
-[![Build Status](http://jenkins.gil:8080/buildStatus/icon?job=instavote%2Fworker-build)](http://jenkins.gil:8080/job/instavote/job/worker-build/)
+[![Build Status](http://35.228.38.116:8080/buildStatus/icon?job=instavote%2Fworker-build)](http://35.228.38.116:8080/job/instavote/job/worker-build/)
 
 Getting started
 ---------------
