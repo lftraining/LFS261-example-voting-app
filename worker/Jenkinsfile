@@ -35,7 +35,7 @@ pipeline {
     }
   }
 
-    stage('docker-package'){
+    stage("docker-package"){
       agent any
       steps{
         echo 'Packaging worker app with docker'
