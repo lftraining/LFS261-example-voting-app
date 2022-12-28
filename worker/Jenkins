@@ -13,14 +13,31 @@ pipeline {
 			}
 	}
 	
+		stage("Dummy-test"){
+			steps{
+				echo "Running unit tests on worker app"
+			}
+		}
+		stage("Dummy-package"){
+			steps{
+				echo "Packaging worker app"
+				}
+		}
+		
 		stage("test"){
 			steps{
 				echo "Running unit tests on worker app"
+				dir('worker'){
+					sh 'mvn clean test'
+				}
 			}
 		}
 		stage("package"){
 			steps{
 				echo "Packaging worker app"
+				dir('worker'){
+					sh 'mvn package'
+				}
 				}
 		}
 	}
