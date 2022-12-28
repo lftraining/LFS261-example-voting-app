@@ -75,6 +75,7 @@ pipeline {
     'dockerlogin') { def workerImage =
     docker.build("rsdroid/worker:v${env.BUILD_ID}", "./ worker")
               workerImage.push()
+              workerImage.push("${env.BRANCH_NAME}")
               workerImage.push("latest")
             }
           }
