@@ -5,7 +5,7 @@ pipeline {
 	}
 	stages{
 		stage("build"){
-			stpes{
+			steps{
 				echo 'Compiling worker app'
 				dir('worker'){
 					sh 'mvn compile'
