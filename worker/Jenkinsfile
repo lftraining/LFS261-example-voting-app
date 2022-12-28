@@ -33,7 +33,6 @@ pipeline {
         }
       }
     }
-  }
     stage("docker-package"){
       agent any
       steps{
