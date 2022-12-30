@@ -19,8 +19,7 @@ pipeline {
                 sleep 5
             }
         }
-    } 
-
+    }
     post{
       always{
           echo 'This pipeline is completed.'
