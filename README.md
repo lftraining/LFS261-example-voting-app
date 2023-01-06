@@ -1,6 +1,11 @@
 Example Voting App
 =========
 
+Build Info
+----------
+
+[![Build Status](http://34.159.190.26:8080/buildStatus/icon?job=instavote%2Fworker-build)](http://34.159.190.26:8080/job/instavote/job/worker-build/)
+
 Getting started
 ---------------
 
