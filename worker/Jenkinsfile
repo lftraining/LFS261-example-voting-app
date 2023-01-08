@@ -1,11 +1,6 @@
 pipeline {
 
-    agent{
-        docker{
-            image 'maven:3.6.1-jdk-8-slim'
-            args '-v $HOME/.m2:/root/.m2'
-        }
-    }
+    agent none
 
     stages{
 
@@ -13,6 +8,13 @@ pipeline {
 
             when{
                 changeset "**/worker/**"
+            }
+
+            agent{
+                docker{
+                    image 'maven:3.6.1-jdk-8-slim'
+                    args '-v $HOME/.m2:/root/.m2'
+                }
             }
 
             steps{
@@ -27,6 +29,13 @@ pipeline {
 
             when{
                 changeset "**/worker/**"
+            }
+
+            agent{
+                docker{
+                    image 'maven:3.6.1-jdk-8-slim'
+                    args '-v $HOME/.m2:/root/.m2'
+                }
             }
 
             steps{
@@ -44,11 +53,35 @@ pipeline {
                 changeset "**/worker/**"
             }
 
+            agent{
+                docker{
+                    image 'maven:3.6.1-jdk-8-slim'
+                    args '-v $HOME/.m2:/root/.m2'
+                }
+            }
+
             steps{
                 echo 'Packaging worker app'
                 dir('worker'){
                     sh 'mvn package -DskipTests'
                     archiveArtifacts artifacts: '**/target/*.jar', fingerprint:true
+                }
+            }
+        }
+
+        stage("docker-package"){
+
+            agent any
+
+            steps{
+                echo 'Packaging worker app with docker'
+                script{
+                    docker.withRegistry('https://index.docker.io/v1/', 'dockerlogin') {
+                        def workerImage = docker.build("phigor/worker:v${env.BUILD_ID}", "./worker")
+                        workerImage.push()
+                        workerImage.push("${env.BRANCH_NAME}")
+                        workerImage.push("latest")
+                    }
                 }
             }
         }
