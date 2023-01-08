@@ -51,7 +51,7 @@ pipeline {
             }
         }
 
-        stage('vote integration'){
+        stage('integration-vote'){
 
             agent any
 
@@ -71,7 +71,7 @@ pipeline {
         }
 
 
-        stage('vote-docker-package') {
+        stage('docker-package-vote') {
 
             agent any
 
@@ -100,12 +100,6 @@ pipeline {
     post{
         always{
             echo 'Building multibranch pipeline for vote app is completed..'
-        }
-        failure{
-            slackSend (channel: "#ci-cd", message: "Build Failed: ${env.JOB_NAME} ${env.BUILD_NUMBER}")
-        }
-        success{
-            slackSend (channel: "#ci-cd", message: "Build Success: ${env.JOB_NAME} ${env.BUILD_NUMBER}")
         }
     }
 }
