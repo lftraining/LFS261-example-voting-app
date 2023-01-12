@@ -1,4 +1,4 @@
-Example Voting App3
+Example Voting App4
 =========
 
 Getting started
