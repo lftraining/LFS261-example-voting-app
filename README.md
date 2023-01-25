@@ -2,7 +2,7 @@
 [![Build Status](http://34.136.149.49:8080/buildStatus/icon?job=instavote%2Fworker-build)](http://34.136.149.49:8080/buildStatus/text?job=instavote%2Fworker-build)
 
 
-Example Voting App Test
+Example Voting App
 =========
 
 Getting started
