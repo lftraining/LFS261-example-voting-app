@@ -1,6 +1,8 @@
 
 [![Build Status](http://35.209.200.128:8080/buildStatus/icon?job=instavote%2Fresult-build)](http://35.209.200.128:8080/job/instavote/job/result-build/)
+
 [![Build Status](http://35.209.200.128:8080/job/instavote/job/result-build/badge/icon)](http://35.209.200.128:8080/job/instavote/job/result-build/)
+
 Example Voting App JAVA
 =========
 
