@@ -5,6 +5,8 @@
 Example Voting App JAVA
 =========
 
+This is a sample voting App
+
 Getting started
 ---------------
 
