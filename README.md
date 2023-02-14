@@ -1,4 +1,4 @@
-01
+101
 Example Voting App
 =========
 
