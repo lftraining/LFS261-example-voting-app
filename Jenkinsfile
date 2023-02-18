@@ -254,6 +254,18 @@ pipeline {
         sh 'docker-compose up -d'
       }
     }
+     stage('Trigger deployment') {
+        agent any
+        environment{
+          def GIT_COMMIT = "${env.GIT_COMMIT}"
+         }
+        steps{
+          echo "${GIT_COMMIT}"
+          echo "triggering deployment"
+          // passing variables to job deployment run by github.com/eeganlf/vote-deploy/blob/master/Jenkinsfile
+           build job: 'deployment', parameters: [string(name: 'DOCKERTAG', value: GIT_COMMIT)]
+        }    
+     }
     
   }
  post{
