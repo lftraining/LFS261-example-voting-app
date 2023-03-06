@@ -1,1 +1,1 @@
-another
+new_text
