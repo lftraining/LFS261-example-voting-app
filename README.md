@@ -1,4 +1,4 @@
-TEST LAB5
+TEST LAB5 - Change for tests : run package step only on master, run stages only when worker changes
 
 Example Voting App
 =========
