@@ -1,30 +1,43 @@
 pipeline {
-    agent any          
+    
+    agent{
+        docker{
+            image 'maven:3.6.3-jdk-8'
+            args '-v $HOME/.m2:/root/.m2'
+        }
+    }         
 
     stages{
-        stage("one"){
+        stage("build"){
             steps{
-                 echo 'step 1'
-                 sleep 3
+                echo "Building the app"
+                dir("worker"){
+                 sh 'mvn compile'
+                }
             }
         }
-        stage("two"){
+    
+        stage('test'){
             steps{
-                 echo 'step 2'
-                 sleep 3
+                echo "Running unit tests on worker app"
+                dir('worker'){
+                sh 'mvn clean test'
             }
         }
-        stage("three"){
+    }
+        stage('package'){
             steps{
-                 echo 'step 3'
-                 sleep 5
+                echo "packaging worker app into a jar"
+                dir('worker'){
+                sh 'mvn package -DskipTests'
+                archiveArtifacts artifacts: '**/target/*.jar, fingerprint: true'  
             }
         }
-    }       
+    }
+}
+
     post{         
-
         always{      
-
              echo 'This pipeline is completed.'
         }
     }
