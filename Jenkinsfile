@@ -34,6 +34,19 @@ pipeline {
             }
         }
     }
+        stage('docker-package'){
+            agent any
+            steps{
+                echo "Packaging docker app"
+                script{
+                    docker.withRegistry('https://index.docker.io/v1/', 'dockerlogin'){
+                        def workerImage = docker.build("zenux88/worker:v${env.BUILD_ID}", "./worker")
+                        workerImage.push
+                        workerImage.push("latest")
+                    }
+                }
+            }
+        }
 }
 
     post{         
