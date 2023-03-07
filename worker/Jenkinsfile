@@ -1,5 +1,6 @@
 pipeline {
 	agent any
+
 	tools{
 		maven 'maven 3.6.1'
 	}
@@ -9,10 +10,11 @@ pipeline {
 			when{
 				changeset "**/worker/**"
 			}
+
 			steps{
 				echo 'Compiling worker app'
 				dir('worker'){
-				sh 'mvn compile'
+					sh 'mvn compile'
 				}
 			}
 		}
@@ -25,7 +27,7 @@ pipeline {
 			steps{
 				echo 'Running Unit Tests on worker app'
 				dir('worker'){
-				sh 'mvn clean test'
+					sh 'mvn clean test'
 				}
 			}
 		}
@@ -39,9 +41,9 @@ pipeline {
 			steps{
 				echo 'Packaging worker app'
 				dir('worker'){
-				sh 'mvn package -DskipTests'
-				archiveArtifacts artifacts: '**/target/*.jar',
-				fingerprint: true
+					sh 'mvn package -DskipTests'
+					archiveArtifacts artifacts: '**/target/*.jar',
+					fingerprint: true
 				}
 			}
 		}
