@@ -1,14 +1,18 @@
 pipeline {
     
-    agent{
-        docker{
-            image 'maven:3.6.3-jdk-8'
-            args '-v $HOME/.m2:/root/.m2'
-        }
-    }         
+    agent none
 
     stages{
         stage("build"){
+            when{
+                changeset "**/worker//**"
+            }
+            agent{
+              docker{
+                image 'maven:3.6.3-jdk-8'
+                args '-v $HOME/.m2:/root/.m2'
+                }   
+            }    
             steps{
                 echo "Building the app"
                 dir("worker"){
@@ -18,6 +22,16 @@ pipeline {
         }
     
         stage('test'){
+            when{
+                changeset "**/worker//**"
+            }
+            agent{
+              docker{
+                image 'maven:3.6.3-jdk-8'
+                args '-v $HOME/.m2:/root/.m2'
+                }   
+            }
+
             steps{
                 echo "Running unit tests on worker app"
                 dir('worker'){
@@ -26,6 +40,17 @@ pipeline {
         }
     }
         stage('package'){
+            when{
+                branch 'master'
+                changeset "**/worker//**"
+            }
+            agent{
+              docker{
+                image 'maven:3.6.3-jdk-8'
+                args '-v $HOME/.m2:/root/.m2'
+                }   
+            }
+            
             steps{
                 echo "packaging worker app into a jar"
                 dir('worker'){
@@ -35,7 +60,15 @@ pipeline {
         }
     }
         stage('docker-package'){
-            agent any
+            when{
+                changeset "**/worker//**"
+            }
+            agent{
+              docker{
+                image 'maven:3.6.3-jdk-8'
+                args '-v $HOME/.m2:/root/.m2'
+                }   
+            }
             steps{
                 echo "Packaging docker app"
                 script{
@@ -48,10 +81,9 @@ pipeline {
             }
         }
 }
-
     post{         
         always{      
-             echo 'This pipeline is completed.'
+             echo 'Pipelined finished.'
         }
     }
 }
