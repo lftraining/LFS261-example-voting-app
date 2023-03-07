@@ -73,7 +73,7 @@ pipeline {
                     def workerImage =
                     docker.build("zenux88/worker:v3", "./worker")
                     workerImage.push()
-                    workerImage.push("${env.BRANCH_NAME}")
+                    workerImage.push("worker:v3")
                     workerImage.push("latest")
                     }      
                 }
