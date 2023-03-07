@@ -42,7 +42,7 @@ pipeline {
         stage('package'){
             when{
                 branch 'master'
-                changeset "**/worker/**"
+                changeset "worker/Dockerfile"
             }
             agent{
               docker{
@@ -60,9 +60,9 @@ pipeline {
         }
     }
         stage('docker-package'){
-            when{
-                changeset "**/worker/**"
-            }
+            //when{
+            //    changeset "worker/Dockerfile "
+            //}
             agent{
               docker{
                 image 'maven:3.6.3-jdk-8'
