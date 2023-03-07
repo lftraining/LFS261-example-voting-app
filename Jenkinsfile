@@ -69,7 +69,7 @@ pipeline {
             script{
                 docker.withRegistry('https://index.docker.io/v1/','dockerlogin') {
                     def workerImage =
-                    docker.build("zenux88/worker:v${env.BUILD_ID}", "./worker")
+                    docker.build("zenux88/worker:v3", "./worker")
                     workerImage.push()
                     workerImage.push("${env.BRANCH_NAME}")
                     workerImage.push("latest")
