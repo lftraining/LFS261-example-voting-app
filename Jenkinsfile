@@ -4,6 +4,7 @@ pipeline {
 
         stage("build"){
             when{
+                branch 'master'
                 changeset "**/worker/**"
             }
             agent{
@@ -22,6 +23,7 @@ pipeline {
 
         stage("test"){
             when{
+                branch 'master'
                 changeset "**/worker/**"
             }
             agent{
