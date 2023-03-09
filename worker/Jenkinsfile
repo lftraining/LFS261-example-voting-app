@@ -81,7 +81,7 @@ pipeline {
 
 	post{
 		always{
-			echo 'Le build du pipeline multibranche pour l application worker est terminé ..'
+			echo 'Le build du pipeline multibranche pour l application worker est terminé ...'
 		}
 	}
 }
