@@ -9,7 +9,7 @@ pipeline {
 	stages{
 		stage("build"){
 			steps{
-				echo 'Building & Compiling l'application worker JAVA'
+				echo 'Building & Compiling l application worker JAVA'
 				dir('worker'){
 					sh 'mvn compile'
 				}
@@ -18,7 +18,7 @@ pipeline {
 
 		stage("test"){
 			steps{
-				echo 'Lancement de Unit Tests dans l'application worker JAVA'
+				echo 'Lancement de Unit Tests dans l application worker JAVA'
 				dir('worker'){
 					sh 'mvn clean test'
 				}
@@ -39,11 +39,10 @@ pipeline {
 		stage('docker-package'){
 			agent any
 			steps{
-				echo 'Packaging de l'application worker JAVA avec docker'
+				echo 'Packaging de l application worker JAVA avec docker'
 				script{
 					docker.withRegistry('https://index.docker.io/v1/', 'dockerlogin') {
-						def workerImage = docker.build("adrien6910/worker:v$
-						{env.BUILD_ID}", "./worker")
+						def workerImage = docker.build("adrien6910/worker:v${env.BUILD_ID}", "./worker")
 						workerImage.push()
 						workerImage.push("latest")
 					}
