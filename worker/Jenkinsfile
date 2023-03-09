@@ -9,7 +9,7 @@ pipeline {
 	stages{
 		stage("build"){
 			steps{
-				echo 'Building & Compiling worker app'
+				echo 'Building & Compiling l'application worker JAVA'
 				dir('worker'){
 					sh 'mvn compile'
 				}
@@ -18,7 +18,7 @@ pipeline {
 
 		stage("test"){
 			steps{
-				echo 'Running Unit Tests on worker app'
+				echo 'Lancement de Unit Tests dans l'application worker JAVA'
 				dir('worker'){
 					sh 'mvn clean test'
 				}
@@ -27,7 +27,7 @@ pipeline {
 
 		stage("package"){
 			steps{
-				echo 'Packaging worker app into a jarfile'
+				echo 'Packaging worker app dans un fichier .jar'
 				dir('worker'){
 					sh 'mvn package -DskipTests'
 					archiveArtifacts artifacts: '**/target/*.jar',
@@ -35,11 +35,27 @@ pipeline {
 				}
 			}
 		}
+		
+		stage('docker-package'){
+			agent any
+			steps{
+				echo 'Packaging de l'application worker JAVA avec docker'
+				script{
+					docker.withRegistry('https://index.docker.io/v1/', 'dockerlogin') {
+						def workerImage = docker.build("adrien6910/worker:v$
+						{env.BUILD_ID}", "./worker")
+						workerImage.push()
+						workerImage.push("latest")
+					}
+				}
+			}
+		}	
+
 	}
 
 	post{
 		always{
-			echo 'Building multibranch pipeline for worker is completed..'
+			echo 'Le job est terminé ..'
 		}
 	}
 }
