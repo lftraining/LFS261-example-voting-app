@@ -1,13 +1,17 @@
 pipeline {
-	agent {
-		docker {
-			image 'maven:3.6.1-jdk-8-slim'
-			args '-v $HOME/.m2:/root/.m2'
-		}
-	}
+	agent none 
 
 	stages{
 		stage("build"){
+			when{
+				changeset "**/worker/**"
+			}
+			agent{
+				docker{
+					image 'maven:3.6.1-jdk-8-slim'
+					args '-v $HOME/.m2:/root/.m2'
+				}
+			}
 			steps{
 				echo 'Building & Compiling l application worker JAVA'
 				dir('worker'){
@@ -17,6 +21,15 @@ pipeline {
 		}
 
 		stage("test"){
+			when{
+                                changeset "**/worker/**"
+                        }
+			agent{
+                                docker{
+                                        image 'maven:3.6.1-jdk-8-slim'
+                                        args '-v $HOME/.m2:/root/.m2'
+                                }
+                        }
 			steps{
 				echo 'Lancement de Unit Tests dans l application worker JAVA'
 				dir('worker'){
@@ -26,6 +39,16 @@ pipeline {
 		}
 
 		stage("package"){
+			when{
+        			branch 'master'
+		                changeset "**/worker/**"
+                        }
+                        agent{
+                                docker{
+                                        image 'maven:3.6.1-jdk-8-slim'
+                                        args '-v $HOME/.m2:/root/.m2'
+                                }
+                        }
 			steps{
 				echo 'Packaging worker app dans un fichier .jar'
 				dir('worker'){
@@ -38,6 +61,10 @@ pipeline {
 		
 		stage('docker-package'){
 			agent any
+			 when{
+                                branch 'master'
+                                changeset "**/worker/**"
+       	                 }
 			steps{
 				echo 'Packaging de l application worker JAVA avec docker'
 				script{
@@ -54,7 +81,7 @@ pipeline {
 
 	post{
 		always{
-			echo 'Le job est terminé ..'
+			echo 'Le build du pipeline multibranche pour l application worker est terminé ..'
 		}
 	}
 }
