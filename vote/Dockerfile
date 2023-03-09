@@ -1,5 +1,5 @@
-# Using official python runtime base image
-FROM eeganlf/voteapp-python:v0.1.0
+#Official python runtime base image
+FROM python:2.7-alpine
 
 # Set the application directory
 WORKDIR /app
@@ -15,4 +15,4 @@ ADD . /app
 EXPOSE 80
 
 # Define our command to be run when launching the container
-CMD ["gunicorn", "app:app", "-b", "0.0.0.0:80", "--log-file", "-", "--access-logfile", "-", "--workers", "4", "--keep-alive", "0"]
+CMD ["gunicorn", "app:app", "-b", "0.0.0.0:80", "--log-file", "-","--access-logfile", "-", "--workers", "4", "--keep-alive", "0"]
