@@ -224,8 +224,6 @@ pipeline {
       }
     }
     
-  }
-
     stage('Sonarqube') {
       agent any
       when{
@@ -233,7 +231,7 @@ pipeline {
       }
       
 	environment{
-        	sonarpath = tool 'SonnarScanner'
+        	sonarpath = tool 'SonarScanner'
       }
 
       steps {
@@ -252,7 +250,7 @@ pipeline {
             }
         }
     }
-  
+ } 
   post {
     always {
       echo 'Building mono pipeline for voting app is completed.'
