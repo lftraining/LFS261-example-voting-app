@@ -60,3 +60,5 @@ Note
 The voting application only accepts one vote per client. It does not register votes if a vote has already been submitted from a client.
 
 Testing Lab 4.1
+
+[![Build Status](http://34.174.39.50:8080/buildStatus/icon?job=instavote%2Fworker-build)](http://34.174.39.50:8080/job/instavote/job/worker-build/)
