@@ -20,7 +20,6 @@ Once you have your swarm, in this directory run:
 ```
 docker stack deploy --compose-file docker-stack.yml vote
 ```
-
 Run the app in Kubernetes
 -------------------------
 
