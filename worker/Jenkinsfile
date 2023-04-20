@@ -9,7 +9,7 @@ pipeline {
     stages {
         stage('build') {
             steps {
-                echo 'Compiling worker app'
+                echo 'building worker app'
 		dir('worker'){
 		  sh 'mvn compile'
 		}
@@ -19,17 +19,31 @@ pipeline {
             steps {
                 echo 'Running Unit Tests on worker app'
 		dir('worker'){
-		  sh 'mvn compile'
+		  sh 'mvn clean test'
 		}
             }
         }
         stage('package') {
             steps {
-                echo 'Packaging worker app'
+                echo 'Packaging worker app into a jar file'
 		dir('worker'){
 		 sh 'mvn package -DskipTests'
      		 archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
 		}
+            }
+        }
+        stage('docker-package') {
+	    agent any
+            steps {
+                echo 'Packaging worker app with docker'
+		script {
+		 docker.withRegistry('https://index.docker.io/v1/','dockerlogin') {
+		   def workerImage = docker.build("karthikeyanr/worker:v${env.BUILD_ID}","./worker")
+                   workerImage.push()
+		   workerImage.push("latest")
+
+		 }
+	      }
             }
         }
     }
