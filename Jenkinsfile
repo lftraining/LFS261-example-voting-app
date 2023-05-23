@@ -27,8 +27,14 @@ pipeline {
     } 
 
     post{
-      always{
-          echo 'This pipeline is completed.'
-      }
-    }
+        always{
+            echo 'Pipeline completed successfully'
+        }
+        failure{
+            slackSend (channel: "#lfs261", message: "Build Failed: ${env.JOB_NAME} ${env.BUILD_NUMBER}")
+        }
+        success{
+            slackSend (channel: "#lfs261", message: "Build Success: ${env.JOB_NAME} ${env.BUILD_NUMBER}")
+        }
+    } 
 }
