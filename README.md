@@ -1,6 +1,6 @@
 Example Voting App
 =========
-fetch
+fetch1
 
 Getting started
 ---------------
