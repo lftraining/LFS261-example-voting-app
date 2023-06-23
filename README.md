@@ -63,3 +63,4 @@ Note
 The voting application only accepts one vote per client. It does not register votes if a vote has already been submitted from a client.
 
 Cheers for reading to the end
+Adding more test to trigger multi branch pipeline setup :)
