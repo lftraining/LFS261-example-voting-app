@@ -1,4 +1,4 @@
-pipeline(
+pipeline{
 	agent any
 	
 	stages {
@@ -26,4 +26,4 @@ pipeline(
 			echo 'This pipeline is completed"
 		}
 	}
-)
+}
