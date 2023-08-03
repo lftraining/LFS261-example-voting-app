@@ -1,6 +1,8 @@
 Example Voting App
 =========
 
+This repo contains an example application to practice CI/CD in the lab of *LFS261 DevOps and SRE Fundamentals: Implementing Continuous Delivery.* 
+
 Getting started
 ---------------
 
