@@ -65,9 +65,9 @@ pipeline {
                 echo 'Packaging worker app with docker'
                 script {
                     docker.withRegistry('https://index.docker.io/v1/', 'jerry871002-dockerhub') {
-                        def workerImage = docker.build('jerry871002/worker:v${env.BUILD_ID}', './worker')
+                        def workerImage = docker.build("jerry871002/worker:v${env.BUILD_ID}", './worker')
                         workerImage.push()
-                        workerImage.push("${env.BRANCH_NAME}")
+                        workerImage.push("${env.BUILD_ID}")
                         workerImage.push('latest')
                     }
                 }
@@ -104,7 +104,7 @@ pipeline {
                     docker.withRegistry('https://index.docker.io/v1/', 'jerry871002-dockerhub') {
                         def resultImage = docker.build("jerry871002/result:v${env.BUILD_ID}", './result')
                         resultImage.push()
-                        resultImage.push("${env.BRANCH_NAME}")
+                        resultImage.push("${env.BUILD_ID}")
                         resultImage.push('latest')
                     }
                 }
@@ -169,7 +169,7 @@ pipeline {
                     docker.withRegistry('https://index.docker.io/v1/', 'jerry871002-dockerhub') {
                         def voteImage = docker.build("jerry871002/vote:${env.BUILD_ID}", "./vote")
                         voteImage.push()
-                        voteImage.push("${env.BRANCH_NAME}")
+                        voteImage.push("${env.BUILD_ID}")
                         voteImage.push("latest")
                     }
                 }
