@@ -64,7 +64,7 @@ pipeline {
             steps {
                 echo 'Packaging worker app with docker'
                 script {
-                    docker.withRegistry('https://index.docker.io/v1/', 'dockerlogin') {
+                    docker.withRegistry('https://index.docker.io/v1/', 'jerry871002-dockerhub') {
                         def workerImage = docker.build('jerry871002/worker:v${env.BUILD_ID}', './worker')
                         workerImage.push()
                         workerImage.push("${env.BRANCH_NAME}")
@@ -101,7 +101,7 @@ pipeline {
             steps {
                 echo 'Packaging result app with docker'
                 script {
-                    docker.withRegistry('https://index.docker.io/v1/', 'dockerlogin') {
+                    docker.withRegistry('https://index.docker.io/v1/', 'jerry871002-dockerhub') {
                         def resultImage = docker.build("jerry871002/result:v${env.BUILD_ID}", './result')
                         resultImage.push()
                         resultImage.push("${env.BRANCH_NAME}")
@@ -166,7 +166,7 @@ pipeline {
             steps {
                 echo 'Packaging vote app with docker'
                 script {
-                    docker.withRegistry('https://index.docker.io/v1/', 'dockerlogin') {
+                    docker.withRegistry('https://index.docker.io/v1/', 'jerry871002-dockerhub') {
                         def voteImage = docker.build("jerry871002/vote:${env.GIT_COMMIT}", "./vote")
                         voteImage.push()
                         voteImage.push("${env.BRANCH_NAME}")
@@ -174,6 +174,31 @@ pipeline {
                     }
                 }
 
+            }
+        }
+
+        stage('sonarqube') {
+            agent any
+            when{
+                branch 'master'
+            }
+            environment{
+                sonarpath = tool 'SonarScanner'
+            }
+            steps {
+                echo 'Running Sonarqube Analysis'
+                withSonarQubeEnv('sonar-instavote') {
+                    sh "${sonarpath}/bin/sonar-scanner -Dproject.settings=sonar-project.properties -Dorg.jenkinsci.plugins.durabletask.BourneShellScript.HEARTBEAT_CHECK_INTERVAL=86400"
+                }
+            }
+        }
+        stage("quality-gate") {
+            steps {
+                timeout(time: 1, unit: 'HOURS') {
+                    // Parameter indicates whether to set pipeline to UNSTABLE if Quality Gate fails
+                    // true = set pipeline to UNSTABLE, false = don't
+                    waitForQualityGate abortPipeline: true
+                }
             }
         }
 
