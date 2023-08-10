@@ -1,6 +1,7 @@
 services:
 
   e2e:
+    platform: linux/amd64
     build: ./tests/
     depends_on:
       - vote
