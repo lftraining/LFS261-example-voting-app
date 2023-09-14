@@ -4,6 +4,8 @@ Example Voting App
 Getting started
 ---------------
 
+* Build status [![Build Status](http://34.154.134.97:8080/buildStatus/icon?job=instavote%2Fworker-build)](http://34.154.134.97:8080/job/instavote/job/worker-build/)
+
 Download [Docker](https://www.docker.com/products/overview). If you are on Mac or Windows, [Docker Compose](https://docs.docker.com/compose) will be automatically installed. On Linux, make sure you have the latest version of [Compose](https://docs.docker.com/compose/install/). If you're using [Docker for Windows](https://docs.docker.com/docker-for-windows/) on Windows 10 pro or later, you must also [switch to Linux containers](https://docs.docker.com/docker-for-windows/#switch-between-windows-and-linux-containers).
 
 Run in this directory:
