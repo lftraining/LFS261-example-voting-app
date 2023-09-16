@@ -108,6 +108,7 @@ archiveArtifacts artifacts: '**/target/*.jar', fingerprint:
 
 true
 echo 'Building multibranch pipeline for worker is completed..'
+echo 'I hope so'
 }
 }
 }
