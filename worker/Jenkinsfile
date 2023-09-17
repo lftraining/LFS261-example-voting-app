@@ -3,6 +3,7 @@ pipeline {
   agent none
 
   stages{
+
       stage("build"){
         when{
             changeset "**/worker/**"
@@ -22,6 +23,7 @@ pipeline {
           }
         }
       }
+
       stage("test"){
         when{
           changeset "**/worker/**"
@@ -40,6 +42,7 @@ pipeline {
 
           }
       }
+
       stage("package"){
         when{
           branch 'master'
@@ -83,7 +86,7 @@ pipeline {
 
   post{
     always{
-        echo 'Building multibranch pipeline for worker is completed..'
+        echo 'Building multibranch pipeline for worker is completed...'
     }
   }
 }
