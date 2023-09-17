@@ -42,11 +42,7 @@ pipeline {
 
             'dockerlogin') {
 
-            def workerImage = docker.build("petarda/worker:v\$
-              {
-                env.BUILD_ID
-              }
-              ", ". / worker ")
+             def workerImage = docker.build("petarda/worker:v${env.BUILD_ID}", ". / worker ")
 
               workerImage.push() workerImage.push("latest")
             }
