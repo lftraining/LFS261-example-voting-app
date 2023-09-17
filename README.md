@@ -1,5 +1,4 @@
-Example Voting App
-=========
+This is an Example Voting App
 
 Getting started
 ---------------
@@ -58,3 +57,5 @@ Note
 ----
 
 The voting application only accepts one vote per client. It does not register votes if a vote has already been submitted from a client.
+
+[![Build Status](http://34.154.87.56:8080/buildStatus/icon?job=instavote%2Fworker-test&subject=UnitTest)](http://34.154.87.56:8080/job/instavote/job/worker-test/)
