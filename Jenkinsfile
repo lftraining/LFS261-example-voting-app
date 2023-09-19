@@ -218,7 +218,7 @@ pipeline {
 
   post{
     always{
-        echo 'Building multibranch pipeline for worker is completed..'
+        echo 'Building multibranch pipeline for worker is completed...'
     }
   }
 }
