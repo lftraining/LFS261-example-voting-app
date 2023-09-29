@@ -27,7 +27,7 @@ Run the app in Kubernetes
 The folder k8s-specifications contains the yaml specifications of the Voting App's services.
 
 Run the following command to create the deployments and services objects:
-```
+```sh
 $ kubectl create -f k8s-specifications/
 deployment "db" created
 service "db" created
