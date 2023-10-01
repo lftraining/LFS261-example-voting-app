@@ -43,7 +43,7 @@ deployment "worker" created
 The vote interface is then available on port 31000 on each host of the cluster, the result one is available on port 31001.
 
 Architecture
------
+-----------
 
 ![Architecture diagram](architecture.png)
 
