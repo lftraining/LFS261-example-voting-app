@@ -1,0 +1,1 @@
+[![Build Status](http://ec2-34-229-47-7.compute-1.amazonaws.com:8080/buildStatus/icon?job=instavote%2Fworker-build)](http://ec2-34-229-47-7.compute-1.amazonaws.com:8080/job/instavote/job/worker-build/)
