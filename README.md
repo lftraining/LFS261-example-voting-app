@@ -1,6 +1,8 @@
 Example Voting App
 =========
 
+filename: README.md
+
 Getting started
 ---------------
 
