@@ -1,44 +1,56 @@
-pipeline {
+pipeline{
 agent{
-  docker{
-    image 'maven:3.6.1-jdk-8-slim'
-    args '-v $HOME/.m2:/root/.m2'
-  }
+docker{
+image 'maven:3.6.1-jdk-8-slim'
+args '-v $HOME/.m2:/root/.m2'
 }
-tools{
-maven 'maven 3.6.1'
 }
 stages{
-stage("build"){
+stage('build'){
 steps{
-echo 'Compiling worker app..'
+echo 'building worker app'
 dir('worker'){
 sh 'mvn compile'
 }
 }
 }
-stage("test"){
+stage('test'){
 steps{
-echo 'Running Unit Tests on worker app..'
+echo 'running unit tests on worker app'
 dir('worker'){
 sh 'mvn clean test'
 }
 }
 }
-stage("package"){
+stage('package'){
 steps{
-echo 'Packaging worker app'
+echo 'packaging worker app into a jar file'
 dir('worker'){
 sh 'mvn package -DskipTests'
+archiveArtifacts artifacts: '**/target/*.jar',
+fingerprint: true
+}
+}
+}
+stage('docker-package'){
+agent any
+steps{
+echo 'Packaging worker app with docker'
+script{
+docker.withRegistry('https://index.docker.io/v1/',
+'dockerlogin') {
+def workerImage = docker.build(" xxxxx /worker:v$
+{env.BUILD_ID}", "./worker")
+workerImage.push()
+workerImage.push("latest")
+}
 }
 }
 }
 }
 post{
 always{
-  archiveArtifacts artifacts: '**/target/*.jar', fingerprint:
-true
-echo 'Building multibranch pipeline for worker is completed..'
+echo 'the job is complete'
 }
 }
 }
