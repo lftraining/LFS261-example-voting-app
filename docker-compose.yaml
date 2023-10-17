@@ -8,6 +8,7 @@ networks:
 services:
   vote:
     image: ibrahimmohamedi/vote:latest
+    build: ./vote
     ports:
       - 5000:80
     depends_on:
@@ -28,10 +29,12 @@ services:
       - POSTGRES_HOST_AUTH_METHOD=trust
   result:
     image: ibrahimmohamedi/result:latest
+    build: ./vote
     ports:
       - 5001:4000
   worker:
     image: ibrahimmohamedi/worker:latest
+    build: ./vote
     depends_on:
       - redis
       - db
