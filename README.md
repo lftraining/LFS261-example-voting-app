@@ -1,7 +1,5 @@
 [![Build Status](http://34.107.26.200:8080/buildStatus/icon?job=instavote%2Fworker-build)](http://34.107.26.200:8080/job/instavote/job/worker-build/)
 
-<a href='http://34.107.26.200:8080/job/instavote/job/worker-build/'><img src='http://34.107.26.200:8080/buildStatus/icon?job=instavote%2Fworker-build'></a>
-
 Example Voting App
 =========
 
