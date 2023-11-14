@@ -1,0 +1,33 @@
+pipeline {
+        agent any
+
+        tools{
+                nodejs 'NodeJS 19.0.1'
+        }
+
+        stages{
+                stage("build"){
+					when{
+						changeset "**/result/**"
+					}
+                        steps{
+				dir('worker'){
+					sh 'npm install'
+                                }
+                        }
+                }
+
+                stage("test"){
+			when{
+				changeset "**/result/**"
+			}
+                        steps{
+				dir('result')
+				sh 'npm install'
+				sh 'npm test'
+                                }
+                        }
+                }
+
+        }
+}
