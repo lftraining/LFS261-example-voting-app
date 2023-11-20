@@ -59,4 +59,9 @@ Note
 
 The voting application only accepts one vote per client. It does not register votes if a vote has already been submitted from a client.
 
-http://34.65.144.166:8080/buildStatus/icon?job=instavote%2Fworker-build
+## Worker Java App
+* Build Status
+
+[![Build
+Status](http://34.65.144.166:8080/buildStatus/icon?job=instavote%2Fworker-test)](http://34.65.36.125:8080/job/instavote/job/worker-test/)
+
