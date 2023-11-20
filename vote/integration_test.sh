@@ -8,7 +8,7 @@ docker-compose build
 docker-compose up -d
 
 
-echo "I: Launching Integration Test ..."
+echo "I: Launching Integration Test ...."
 
 docker-compose run --rm integration /test/test.sh
 
