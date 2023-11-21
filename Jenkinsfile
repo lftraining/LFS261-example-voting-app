@@ -25,6 +25,12 @@ pipeline {
                 echo "step more"
             }
         }
+        stage("five"){
+            steps{
+                echo "step more"
+                sleep 3
+            }
+        }
     } 
 
     post{
