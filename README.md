@@ -61,3 +61,5 @@ The voting application only accepts one vote per client. It does not register vo
 
 
 These are my additional changes
+
+These are changes to test the pull request functionality
