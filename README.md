@@ -1,5 +1,8 @@
 Example Voting App
 =========
+Hello
+This is a sample voting app.
+filename: README.MD
 
 Getting started
 ---------------
