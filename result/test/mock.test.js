@@ -26,7 +26,6 @@ describe('mock test 4', () => {
   });
 });
 
-const expect = require('chai').expect;
 
 describe('mock test 1', () => {
   it('unit test 1', () => {
