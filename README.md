@@ -1,6 +1,8 @@
 Example Voting App
 =========
 
+## Build status
+
 [![Build Status](http://34.88.67.86:8080/buildStatus/icon?job=InstaVote%2Fworker-build)](http://34.88.67.86:8080/job/InstaVote/job/worker-build/)
 
 [![Build Status](http://34.88.67.86:8080/buildStatus/icon?job=InstaVote%2Fworker-test&subject=Unittest)](http://34.88.67.86:8080/job/InstaVote/job/worker-test/)
