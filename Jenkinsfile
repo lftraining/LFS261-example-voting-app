@@ -18,7 +18,7 @@ pipeline {
         }
           }
       }
-      stage('test') {
+    stage('test') {
         when {
           changeset '**/worker/**'
         }
@@ -28,7 +28,7 @@ pipeline {
           sh  'mvn clean test'
         }
           }
-      }
+    }
       stage('package') {
           when {
             branch 'master'
@@ -48,6 +48,12 @@ pipeline {
       }
   }
   post {
+    failure {
+      slackSend(channel: '#ci-cd', message: "Build Failed: ${env.JOB_NAME} ${env.BUILD_NUMBER}")
+    }
+    success {
+      slackSend(channel: '#ci-cd', message: "Build Success: ${env.JOB_NAME} ${env.BUILD_NUMBER}")
+    }
     always {
       echo 'This pipeline is completed.'
     }
