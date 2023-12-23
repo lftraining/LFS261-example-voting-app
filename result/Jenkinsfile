@@ -1,0 +1,40 @@
+pipeline {
+    agent any
+
+    tools {
+        nodejs 'nodejs'
+    }
+
+    stages {
+        stage('build') {
+            when {
+                changeset '**/result/**'
+            }
+            steps {
+                echo 'Starting to Build'
+
+                    sh  'npm install'
+            }
+        }
+        stage('test') {
+            when {
+                changeset '**/result/**'
+            }
+            steps {
+                echo 'Starting to test'
+                    sh  'npm test'
+            }
+        }
+    }
+    post {
+        failure {
+            slackSend(channel: '#ci-cd', message: "Build Failed: ${env.JOB_NAME} ${env.BUILD_NUMBER}")
+        }
+        success {
+            slackSend(channel: '#ci-cd', message: "Build Success: ${env.JOB_NAME} ${env.BUILD_NUMBER}")
+        }
+        always {
+            echo 'This pipeline is completed.'
+        }
+    }
+}
