@@ -35,14 +35,13 @@ pipeline {
             changeset '**/worker/**'
           }
           steps {
-        echo 'Starting to Build'
-        dir('worker') {
-          sh  'mvn package -DskipTests'
-        }
+            echo 'Starting to Build'
+            dir('worker') {
+              sh  'mvn package -DskipTests'
+            }
           }
-      }
-      post {
-          success {
+          post {
+            success {
             archiveArtifacts(artifacts: '**/target/*.jar', fingerprint: true)
           }
       }
