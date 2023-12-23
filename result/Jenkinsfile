@@ -1,0 +1,34 @@
+pipeline {
+    agent any
+
+    tools {
+        nodejs 'nodejs'
+    }
+
+    stages {
+        stage('build') {
+            when {
+                changeset '**/result/**'
+            }
+            steps {
+                echo 'Starting to Build'
+
+                    sh  'npm install'
+            }
+        }
+        stage('test') {
+            when {
+                changeset '**/result/**'
+            }
+            steps {
+                echo 'Starting to test'
+                    sh  'npm test'
+            }
+        }
+    }
+    post {
+        always {
+            echo 'This pipeline is completed.'
+        }
+    }
+}
