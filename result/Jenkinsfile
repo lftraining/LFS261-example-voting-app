@@ -22,7 +22,8 @@ pipeline {
             }
             steps {
                 echo 'Starting to test'
-                    sh  'npm test'
+                    sh 'npm install'
+                    sh 'npm test'
             }
         }
     }
