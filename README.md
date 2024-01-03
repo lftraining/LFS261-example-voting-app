@@ -59,5 +59,4 @@ Note
 
 The voting application only accepts one vote per client. It does not register votes if a vote has already been submitted from a client.
 
-```bash
-test4
+<a href='http://34.116.233.186:8080/job/instavote/job/worker-build/'><img src='http://localhost:8080/buildStatus/icon?job=instavote%2Fworker-build'></a>
