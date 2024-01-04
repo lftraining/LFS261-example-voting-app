@@ -7,7 +7,7 @@ pipeline {
     stage('worker-build') {
       agent {
         docker {
-          image 'maven:3.8.5-jdk-11-slim'
+          image 'maven:3.6.1-jdk-8-slim'
           args '-v $HOME/.m2:/root/.m2'
         }
 
@@ -27,7 +27,7 @@ pipeline {
     stage('worker test') {
       agent {
         docker {
-          image 'maven:3.8.5-jdk-11-slim'
+          image 'maven:3.6.1-jdk-8-slim'
           args '-v $HOME/.m2:/root/.m2'
         }
 
@@ -47,7 +47,7 @@ pipeline {
     stage('worker-package') {
       agent {
         docker {
-          image 'maven:3.8.5-jdk-11-slim'
+          image 'maven:3.6.1-jdk-8-slim'
           args '-v $HOME/.m2:/root/.m2'
         }
 
