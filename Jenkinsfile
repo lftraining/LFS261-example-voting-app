@@ -75,7 +75,7 @@ pipeline {
       steps {
         echo 'Packaging worker app with docker'
         script {
-          docker.withRegistry('https://index.docker.io/v1/', 'dockerlogin') {
+          docker.withRegistry('https://index.docker.io/v1/', 'dockerhub') {
             def workerImage = docker.build("oskarq/worker:v${env.BUILD_ID}", './worker')
             workerImage.push()
             workerImage.push("${env.BRANCH_NAME}")
