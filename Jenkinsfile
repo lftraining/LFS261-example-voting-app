@@ -225,6 +225,7 @@ pipeline {
       }
       steps {
         echo 'Deploy instavote app with docker compose'
+        sh 'pwd'
         sh 'docker-compose up -d'
       }
     }
