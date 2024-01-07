@@ -1,52 +1,56 @@
 pipeline{
-    agent any
-
-    tools{
-        maven 'maven 3.6.1'
+    agent{
+        docker{
+            image 'maven:3.6.1-jdk-8-slim'
+            args '-v $HOME/.m2:/root/.m2'
     }
-
+}
     stages{
-        stage("Build"){
-            when{
-                changeset "**/worker/**"
-            }
+        stage('build'){
             steps{
-                echo "Compiling worker app"
-                dir ('worker'){
-                    sh 'mvn compile'
+                echo 'building worker app'
+                dir('worker'){
+                sh 'mvn compile'
+                    }
                 }
-             
-            }
-        }
-        stage("test"){
-            when{
-                changeset "**/worker/**"
-            }
-            steps{
-                echo "Running Unit test on worker app"
-                dir ("worker"){
-                    sh "mvn clean test"
-                }
-             }
-        }
-        stage("package"){
-            when{
-                branch 'master'
-                changeset "**/worker/**"
-            }
-            steps{
-                echo "Packaging worker app"
-                dir("worker"){
-                    sh 'mvn package -DskipTests'
-                    archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
-                }
-            }
-        }
 
     }
-    post{
-        always{
-            echo "Building multibranch pipeline for worker app is completed"
+        stage('test'){
+            steps{
+                echo 'running unit tests on worker app' 
+                dir('worker'){
+                sh 'mvn clean test'
+                        }
+                }
+    } 
+        stage('package'){
+            steps{
+            echo 'packaging worker app into a jar file'
+            dir('worker'){
+            sh 'mvn package -DskipTests'
+            archiveArtifacts artifacts: '**/target/*.jar',
+            fingerprint: true
+                 }
+             }
+    } 
+        stage('docker-package'){
+            agent any
+            steps{
+                echo 'Packaging worker app with docker'
+                script{
+                docker.withRegistry('https://index.docker.io/v1/','dockerlogin') {
+                    def workerImage = docker.build("skibum77/worker:v$ {env.BUILD_ID}", "./worker")
+                    workerImage.push()
+                    workerImage.push("latest")
+                                            }
+                        }
+            }
         }
     }
-   }
+
+post{ 
+    always{
+        echo 'the job is complete'
+            }
+    }
+}
