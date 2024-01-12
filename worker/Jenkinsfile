@@ -1,8 +1,10 @@
 pipeline {
-    agent any
-    tools {
-        maven 'maven 3.6.1'
-    }
+    agent{
+        docker{
+            image 'maven:3.6.1-jdk-8-slim'
+            args '-v $HOME/.m2:/root/.m2'
+        }
+    } 
     stages {
         stage ("build") {
             when {
@@ -30,19 +32,20 @@ pipeline {
             when {
                 branch 'master'
                 changeset "**/worker/**"
-            steps {
-                echo 'Packaging working app'
-                dir ('worker') {
-                    sh 'mvn package -DskipTests'
-                    archiveArtifacts artifacts: '**/target/*.jar',
-                    fingerprint: true
+                steps {
+                    echo 'Packaging working app'
+                    dir ('worker') {
+                        sh 'mvn package -DskipTests'
+                        archiveArtifacts artifacts: '**/target/*.jar',
+                        fingerprint: true
+                    }
                 }
             }
         }
-    }
-    post {
-        always {
-            echo 'Building multibranch pipeline for worker is completed..'
+        post {
+            always {
+                echo 'Building multibranch pipeline for worker is completed..'
+            }
         }
     }
 }
