@@ -65,7 +65,7 @@ pipeline {
           agent any
           when{
             changeset "**/worker/**"
-            branch 'master'
+            branch 'feature/dockerfiles'
           }
           steps{
             echo 'Packaging worker app with docker'
