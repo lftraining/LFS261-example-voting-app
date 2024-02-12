@@ -25,6 +25,8 @@ services:
       - "db-data:/var/lib/postgresql/data"
     networks:
       - instavote
+    environment:
+    - POSTGRES_HOST_AUTH_METHOD=trust
 
   result:
     image: projectkmac/result:latest
