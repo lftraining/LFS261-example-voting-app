@@ -1,0 +1,63 @@
+services:
+
+  e2e:
+    build: ./tests/
+    depends_on:
+      - vote
+      - result
+      - worker
+      - db
+      - redis
+    networks:
+      - front-tier
+      - back-tier
+
+  vote:
+    image: ${VOTE_IMAGE}
+    ports: ["80"]
+    depends_on:
+      - redis
+      - db
+    networks:
+      - front-tier
+      - back-tier
+
+  result:
+    image: ${RESULT_IMAGE}
+    ports: ["4000"]
+    depends_on:
+      - redis
+      - db
+    networks:
+      - front-tier
+      - back-tier
+    environment:
+      - ENV OPENSSL_CONF=/dev/null
+
+  worker:
+    image: ${WORKER_IMAGE}
+    depends_on:
+      - redis
+      - db
+    networks:
+      - back-tier
+
+  redis:
+    image: redis:alpine
+    ports: ["6379"]
+    networks:
+      - back-tier
+
+  db:
+    image: postgres:9.4
+    networks:
+      - back-tier
+    environment: 
+      - POSTGRES_HOST_AUTH_METHOD=trust
+
+volumes:
+  db-data:
+
+networks:
+  front-tier:
+  back-tier:
