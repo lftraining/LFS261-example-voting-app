@@ -35,8 +35,8 @@ services:
     image: docker:dind
     ports:
       - 2376:2376
-      - 5000:5000
-      - 5001:5001
+      - 5002:5002
+      - 5003:5003
     environment:
       - DOCKER_TLS_CERTDIR=/certs
     networks:
