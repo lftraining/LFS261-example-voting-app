@@ -1,0 +1,18 @@
+services:
+  vote:
+    image: projectkmac/vote:latest
+    ports:
+      - 5000:80
+
+  redis:
+    image: redis:alpine
+  db:
+    image: postgres:9.4
+
+  result:
+    image: projectkmac/result:latest
+    ports:
+      - 5001:80
+  
+  worker: 
+    image: projectkmac/worker:latest
