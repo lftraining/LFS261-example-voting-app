@@ -1,0 +1,225 @@
+pipeline {
+    agent{
+        docker{
+            image 'maven:3.6.1-jdk-8-slim'
+            args '-v $HOME/.m2:/root/.m2'
+        }
+        docker{ 
+            image 'python:3.12.1-alpine3.19' 
+        } 
+        }
+    tools{
+        nodejs 'NodeJS 8.9.0'
+    }
+    
+// Worker Stages
+    stages{
+        stage("worker-build"){
+            agent{
+                docker{
+                    image 'maven:3.6.1-jdk-8-slim'
+                    args '-v $HOME/.m2:/root/.m2'
+                }
+            }
+            when{
+                changeset "**/worker/**"
+            }
+            steps{
+                echo 'Compiling worker app'
+                dir(path:'worker'){
+                    sh 'mvn compile'
+                }
+            }
+        }
+        stage("worker-test"){
+            agent{
+                docker{
+                    image 'maven:3.6.1-jdk-8-slim'
+                    args '-v $HOME/.m2:/root/.m2'
+                }
+            }
+            when{
+                changeset "**/worker/**"
+            }
+            steps{
+                echo 'Running Unit Tests on worker app'
+                dir(path:'worker'){
+                    sh 'mvn clean test'
+                }
+            }
+        }
+        stage("worker-package"){
+            agent{
+                docker{
+                    image 'maven:3.6.1-jdk-8-slim'
+                    args '-v $HOME/.m2:/root/.m2'
+                }
+            }
+            when{
+                branch 'master'
+                changeset "**/worker/**"
+            }
+            steps{
+                echo 'Packaging worker app'
+                dir(path:'worker'){
+                    sh 'mvn package -DskipTests'
+                    archiveArtifacts artifacts: '**/target/*.jar',
+                    fingerprint: true
+                }
+            }
+        }
+        stage("worker-docker-package"){
+            agent any
+            when{
+                branch 'master'
+                changeset "**/worker/**"
+            }
+            steps{
+                echo 'Packaging worker app with docker'
+                script{
+                    docker.withRegistry('https://index.docker.io/v/','dockerlogin') { def workerImage = 
+                    docker.build("projectkmac/worker:v${env.BUILD_ID}", "./ worker")
+                        workerImage.push("${env.BRANCH_NAME}")
+                        workerImage.push("latest")}}
+                }
+            }
+        
+
+//Vote Stages
+
+        stage("vote-build"){
+            when{
+                changeset "**/vote/**"
+            }
+            agent{
+                docker{ 
+                    image 'python:2.7.16-slim'
+                    args '--user root'
+                } 
+            }
+            steps{
+                echo 'Compiling voting app'
+                dir(path:'vote'){
+                    sh 'pip install -r requirements.txt'
+                }
+            }
+        }
+
+        stage("vote-test"){
+            agent{
+                docker{ 
+                    image 'python:2.7.16-slim'
+                    args '--user root'
+                } 
+            }
+            when{
+                changeset "**/vote/**"
+            }
+            steps{
+                echo 'Running Unit tests on Voting app'
+                dir(path:'vote'){
+                    sh 'pip install -r requirements.txt'
+                    sh 'nosetests -v'
+                }
+            }
+        }
+        stage("vote-integration"){
+            agent any
+            when{
+                changeset "**/vote/**"
+                branch 'master'
+            }
+            steps{
+                echo 'Running Integration Tests on Voting app'
+                dir(path:'vote')
+                    sh 'pip install -r requirements.txt'
+                    sh 'sh integration_test.sh'
+            }
+        }   
+        stage("vote-package"){
+            agent any
+            when{
+                branch 'master'
+                changeset "**/vote/**"
+            }
+            steps{
+                echo 'Packaging Vote app with docker'
+                script{
+                    docker.withRegistry('https://index.docker.io/v/','dockerlogin') { def voteImage = 
+                    docker.build("projectkmac/vote:v${env.GIT_COMMIT}", "./ vote")
+                        voteImage.push("${env.BRANCH_NAME}")
+                        voteImage.push("latest")}}
+                }
+        }
+
+//Result Stages
+
+        stage("result-build"){
+            agent{
+                docker{
+                    image 'node:8.16.0-alpine'
+                }
+            }
+            when{
+                changeset "**/result/**"
+            }
+            steps{
+                echo 'Compiling Results app'
+                dir(path:'result'){
+                    sh 'npm install'
+                }
+            }
+        }
+
+        stage("result-test"){
+            agent{
+                docker{
+                    image 'node:8.16.0-alpine'
+                }
+            }
+            when{
+                changeset "**/result/**"
+            }
+            steps{
+                echo 'Unit test for Results app'
+                dir(path:'result'){
+                    sh 'npm install'
+                    sh 'npm test'
+                }
+            }
+        }
+
+        stage("result-package"){
+            agent any
+             when{
+                branch 'master'
+                changeset "**/result/**"
+            }
+           steps{
+                echo 'Packaging Result app with docker'
+                script{
+                    docker.withRegistry('https://index.docker.io/v/','dockerlogin') { def resultImage = 
+                    docker.build("projectkmac/result:v${env.BUILD_ID}", "./ result")
+                        resultImage.push("${env.BRANCH_NAME}")
+                        resultImage.push("latest")}}
+                }
+        }
+        stage("deploy-to-dev"){
+            agent any
+            when{
+                branch 'master'
+            }
+            steps{
+                echo 'Deploy instavote app with docker compose'
+                sh 'docker compose up -d'
+            }
+        }
+
+// Post
+
+    post{
+        always{
+            echo 'the job is complete...'
+        }
+    }
+}
