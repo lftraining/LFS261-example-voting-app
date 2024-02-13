@@ -1,0 +1,3 @@
+[submodule "maven-examples"]
+	path = maven-examples
+	url = https://github.com/project-kmac/maven-examples.git
