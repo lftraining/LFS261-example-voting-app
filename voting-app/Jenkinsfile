@@ -214,6 +214,34 @@ pipeline {
                 sh 'docker compose up -d'
             }
         }
+// SonarQube
+        stage("Sonarqube"){
+            agent any
+            when{
+                branch 'master'
+            }
+            environment{
+                sonarpath = tool 'SonarScanner'
+            }
+            steps{
+                echo 'Running Sonarqube Analysis'
+                withSonarQubeEnv('sonar-instavote'){
+                    sh "${sonarpath}/bin/sonar/scanner
+                -Droject.settings=sonar-project.properties
+                Dorg.jenkinsci.plugins.durabletask.BourneShellScript.HEARTBEAT_CHECK_INTERVAL=86400"
+                }
+            }
+        }
+        stage("Quality Gate"){
+            steps{
+                timeout(time: 1, unit: 'HOURS'){
+                    //parameter indicates whether to set pipleine to unstable if Quality Gate fails
+                    // True = set pipeline to UNSTABLE, False = don't wait ForQualityGate abortPipeline:true
+                    waitForQualityGate abortPipeline:true
+                }
+            }
+        }
+    }    
 
 // Post
 
