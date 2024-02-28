@@ -1,3 +1,6 @@
+[![Build Status](http://34.125.103.67:8080/buildStatus/icon?job=instavote%2Fworker-test&subject=worker-test )](http://34.125.103.67:8080/job/instavote/job/worker-test/)
+[![Build Status](http://34.125.103.67:8080/buildStatus/icon?job=instavote%2Fworker-build&subject=worker-build )](http://34.125.103.67:8080/job/instavote/job/worker-build/) 
+
 Example Voting App
 =========
 
