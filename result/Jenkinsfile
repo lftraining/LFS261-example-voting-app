@@ -1,0 +1,29 @@
+pipeline {
+  agent any
+  
+  tools {
+    node 'nodejs 21.7.1'
+  }
+  stages{
+    stage("build") {
+      when{
+        changeset "**/result/**"
+      }
+      steps{
+        dir("result") {
+          sh 'npm install'
+        }
+      }
+    }
+    stage("test") {
+      when{
+	changeset "**/result/**"
+      }
+	steps{
+	  dir("result"){
+		sh 'npm test'
+	  }
+	}
+    }
+  }
+}
