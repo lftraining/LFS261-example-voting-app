@@ -3,10 +3,6 @@ Example Voting App
 Build Status
 ------------
 Jenkins CI: [![Build Status](http://proxy.domitrek.ca:8080/buildStatus/icon?job=instavote%2Fworker-build)](http://proxy.domitrek.ca:8080/job/instavote/job/worker-build/)
-Github Actions:
-Azure Devops:
-
-
 
 Getting started
 ---------------
