@@ -1,9 +1,9 @@
 pipeline {
-  agent any
-
-  tools{
-    maven 'maven 3.9.6'
-
+  agent{
+    docker{
+      image 'maven:3.9.6'
+      args '-v $HOME/.m2:/root/.m2'
+    }
   }
 
   stages{
@@ -27,7 +27,8 @@ pipeline {
       steps{
         echo 'Packaging worker app'
         dir('worker'){
-          sh 'mvn package'
+          sh 'mvn package -DskipTests'
+          arhciveArtifacts artifacts: '**/target/*.jar', fingerprint: true
         }
       }
     }
@@ -35,7 +36,7 @@ pipeline {
 
   post{
     always{
-      echo 'Building multibranch pipeline for worker is completed..'
+      echo 'The job is complete'
     }
   }
 }
