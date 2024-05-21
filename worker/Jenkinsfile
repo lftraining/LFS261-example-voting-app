@@ -11,7 +11,7 @@ pipeline {
       steps{
         echo 'Compiling worker app'
         dir('worker'){
-          sh 'mnv compile'
+          sh 'mvn compile'
         }
       }
     }
@@ -27,6 +27,8 @@ pipeline {
 
       }
     }
+  }
+
   post{
     always{
       echo 'Building multibranch pipeline for worker is completed..'
