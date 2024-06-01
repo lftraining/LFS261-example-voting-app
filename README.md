@@ -52,7 +52,7 @@ Architecture
 * A .NET worker which consumes votes and stores them in…
 * A Postgres database backed by a Docker volume
 * A Node.js webapp which shows the results of the voting in real time
-
+[![Build Status](http://localhost:8080/buildStatus/icon?job=Instavote%2Fworker-build)](http://localhost:8080/job/Instavote/job/worker-build/)
 
 Note
 ----
