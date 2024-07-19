@@ -14,12 +14,16 @@ pipeline {
 		}
 		stage("test"){
 			steps{
-				sh 'mvn clean test'
+				dir('worker'){
+					sh 'mvn clean test'
+				}
 			}
 		}
 		stage("package"){
 			steps{
-				sh 'mvn package'
+				dir('worker'){
+					sh 'mvn package'
+				}
 			}
 		}
 	}
