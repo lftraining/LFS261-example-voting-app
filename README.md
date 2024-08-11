@@ -1,6 +1,8 @@
 Example Voting App
 =========
 
+Embeddable build status
+
 Getting started
 ---------------
 
