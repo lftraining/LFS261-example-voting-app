@@ -1,7 +1,7 @@
 Example Voting App
 =========
 
-Embeddable build status
+[![Build Status](http://34.175.151.108:8080/job/instavote/job/worker-build/badge/icon)](http://34.175.151.108:8080/job/instavote/job/worker-build/) 
 
 Getting started
 ---------------
