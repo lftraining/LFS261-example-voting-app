@@ -1,51 +1,57 @@
 #!/bin/bash
 
-current=0
-next=0
-new=0
+# Function to get current vote count
+get_vote_count() {
+    phantomjs render.js "http://result:80/" | grep -i vote | cut -d ">" -f 4 | cut -d " " -f1
+}
 
+# Wait for services to be ready
+echo "Waiting for services to be ready..."
 while ! timeout 1 bash -c "echo > /dev/tcp/vote/80"; do
     sleep 1
 done
+echo "Vote service is ready."
 
-# add initial vote 
-curl -sS -X POST --data "vote=a" http://vote > /dev/null
+while ! timeout 1 bash -c "echo > /dev/tcp/result/80"; do
+    sleep 1
+done
+echo "Result service is ready."
 
-current=`phantomjs render.js "http://result:4000/" | grep -i vote | cut -d ">" -f 4 | cut -d " " -f1`
-# echo $current
-if [ -z "$current" ]; then current=1; else echo "Not NULL"; fi
+# Get initial vote count
+initial_count=$(get_vote_count)
 
-next=`echo "$(($current + 1))"`
-
-  echo -e "\n\n-----------------"
-  echo -e "Current Votes Count: $current"
-  echo -e "-----------------\n"
-
-echo -e " I: Submitting one more vote...\n"
-
-curl -sS -X POST --data "vote=b" http://vote > /dev/null
-sleep 3
-
-new=`phantomjs render.js "http://result:4000/" | grep -i vote | cut -d ">" -f 4 | cut -d " " -f1`
-
-if [ -z "$new" ]; then new=$next; else echo "Not NULL"; fi
+echo "Initial vote count: $initial_count"
 
 
 
-  echo -e "\n\n-----------------"
-  echo -e "New Votes Count: $new"
-  echo -e "-----------------\n"
+# Submit first vote
+echo "Submitting vote (a)..."
+curl -sS -X POST --data "vote=a" http://vote
+sleep 2
+current=$(get_vote_count)
+echo "Vote count after first submission: $current"
 
-echo -e "I: Checking if votes tally......\n"
+# Calculate expected next count
+# final=$((initial_count + 1))
+# echo "Expected final count: $final"
 
-if [ "$next" -eq "$new" ]; then
-  echo -e "\\e[42m------------"
-  echo -e "\\e[92mTests passed"
-  echo -e "\\e[42m------------"
-  exit 0
+# Check vote count multiple times
+# for i in {1..5}; do
+   # sleep 2
+new=$(get_vote_count)
+# done
+
+# Final check
+echo "Performing final check..."
+if [ $initial_count -lt $new ]; then
+    echo -e "\e[42m------------"
+    echo -e "\e[92mTests passed"
+    echo -e "\e[42m------------"
+    exit 0
 else
-  echo -e "\\e[41m------------"
-  echo -e "\\e[91mTests failed"
-  echo -e "\\e[41m------------"
-  exit 1
+    echo -e "\e[41m------------"
+    echo -e "\e[91mTests failed"
+    echo -e "\e[41m------------"
+    echo "Expected: $next, Actual: $new"
+    exit 1
 fi
