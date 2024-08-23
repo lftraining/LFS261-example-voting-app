@@ -1,4 +1,4 @@
-Example Voting App
+Voting App
 =========
 
 Getting started
@@ -58,3 +58,9 @@ Note
 ----
 
 The voting application only accepts one vote per client. It does not register votes if a vote has already been submitted from a client.
+
+
+Note: 
+Example Voting App
+=========
+This is a sample voting app
