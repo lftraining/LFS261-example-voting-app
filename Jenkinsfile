@@ -53,6 +53,42 @@ pipeline {
 			}
 		}
 	}
+			stage('vote-build'){ 
+            agent{
+                docker{
+                    image 'python:3.11-slim'
+                    args '--user root'
+                    }
+                    }
+
+            steps{ 
+                echo 'Compiling vote app.' 
+                dir('vote'){
+            
+                        sh "pip install -r requirements.txt"
+
+                } 
+            } 
+        } 
+        stage('vote-test'){ 
+           
+            agent {
+                docker{
+                    image 'python:3.11-slim'
+                    args '--user root'
+                    }
+                    }
+            steps{ 
+                echo 'Running Unit Tests on vote app.' 
+                dir('vote'){ 
+                   
+                        sh "pip install -r requirements.txt"
+                        sh 'nosetests -v'
+                        
+                        
+                } 
+            } 
+        }
 	stage('worker-docker-package') {
 		agent any 
 		when {
