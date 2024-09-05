@@ -53,6 +53,8 @@ Architecture
 * A Postgres database backed by a Docker volume
 * A Node.js webapp which shows the results of the voting in real time
 
+http://35.224.188.140:8080/buildStatus/text?job=instavote%2Fworker-build
+
 
 Note
 ----
