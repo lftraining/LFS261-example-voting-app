@@ -1,18 +1,18 @@
+version: '2'
+
 services:
 
-  e2e:
+  sut:
     build: ./tests/
     depends_on:
       - vote
       - result
       - worker
-      - db
-      - redis
     networks:
       - front-tier
 
   vote:
-    image: ${VOTE_IMAGE}
+    build: ../vote/
     ports: ["80"]
     depends_on:
       - redis
@@ -22,7 +22,7 @@ services:
       - back-tier
 
   result:
-    image: ${RESULT_IMAGE}
+    build: .
     ports: ["80"]
     depends_on:
       - redis
@@ -32,7 +32,7 @@ services:
       - back-tier
 
   worker:
-    image: ${WORKER_IMAGE}
+    build: ../worker/
     depends_on:
       - redis
       - db
@@ -41,21 +41,16 @@ services:
 
   redis:
     image: redis:alpine
-    ports: ["6379"]
     networks:
       - back-tier
 
   db:
-    image: postgres:15-alpine
+    image: postgres:9.4
     environment:
       POSTGRES_USER: "postgres"
       POSTGRES_PASSWORD: "postgres"
     volumes:
       - "db-data:/var/lib/postgresql/data"
-      - "./healthchecks:/healthchecks"
-    healthcheck:
-      test: /healthchecks/postgres.sh
-      interval: "5s"
     networks:
       - back-tier
 
