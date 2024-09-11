@@ -1,6 +1,6 @@
 Example Voting App:::
 =========
-
+Enzo Vidiella
 Getting started
 ---------------
 
