@@ -1,6 +1,6 @@
 Example Voting App:::
 =========
-Enzo Vidiella
+Hey boys! Hey girls!
 Getting started
 ---------------
 
