@@ -1,6 +1,6 @@
 Example Voting App:::
 =========
-Enzo Vidiella
+Enzo Vidiella: I need give a purpuse to my life
 Getting started
 ---------------
 
