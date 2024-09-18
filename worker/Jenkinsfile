@@ -33,6 +33,18 @@ pipeline {
                 }
             }
         }
+        stage('docker-package') {
+            steps {
+                echo 'Packaging worker app with Docker'
+                script {
+                    docker.withRegistry('https://index.docker.io/v1/', 'dockerlogin') {
+                        def workerImage = docker.build("ruwbdy/worker:v${env.BUILD_ID}", "./worker")
+                        workerImage.push()
+                        workerImage.push("latest")
+                    }
+                }
+            }
+        }
     }
 
     post {
