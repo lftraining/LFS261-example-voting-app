@@ -11,6 +11,7 @@ pipeline {
                 echo 'building worker app' 
                 dir('worker'){ 
                   sh 'mvn compile' 
+                  sleep 3
                 } 
             } 
         } 
@@ -19,6 +20,7 @@ pipeline {
                 echo 'running unit tests on worker app' 
                 dir('worker'){ 
                   sh 'mvn clean test' 
+                  sleep 5
                 } 
             } 
         } 
