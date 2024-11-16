@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     tools{
-        maven 'Maven 3.9.8'
+        maven 'maven 3.9.8'
     }
 
     stages{
@@ -17,27 +17,18 @@ pipeline {
         stage("test"){
             steps{
                 echo 'Running Unit Test on worker app'
-                // dir('worker'){
-                    // sh 'mvn clean test'
-                // }
             }
-        }
 
-            stage("package"){
+            stage("packaging"){
                 steps{
                     echo 'Packaging worker app'
-                    // dir('worker'){
-                        // sh 'mvn package -DskipTests'
-                    // }
                 }
             }
         }
         post{
             always{
-                // archiveArtifactss artifacts: '**/target/*.jar', fingerprint: true
-                
                 echo 'Building multibranch pipeline for worker is completed..'
             }
         }
     }
-
+}
