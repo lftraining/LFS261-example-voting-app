@@ -43,8 +43,9 @@ https://www.theserverside.com/blog/Coffee-Talk-Java-News-Stories-and-Opinions/Fi
       - [x] Docker plugin 1.6.2
     + [ ] resolves issue?
       + [x] feature/workpipe builds (#14)
-      - [ ] master
-
+      - [ ] master: fail [x] attempt: (#4)
+    + [ ] `Jenkinsfile` "Maven" => "maven" 
+      
 
           ```
           Started by user admin
