@@ -47,6 +47,7 @@ https://www.theserverside.com/blog/Coffee-Talk-Java-News-Stories-and-Opinions/Fi
     + [?] `Jenkinsfile` "Maven" => "maven"
       - [x] attempted fail (#5)
       - [x] check: `docker inspect -f . maven:3.9.8-sapmachine-21`
+      - [x] they both failed (#16/17) complaining about "Maven"
         ```
         avirtualrealitystory@ci-4nov24:~/06/lfx261/15Nov24a$ sudo docker inspect -f . mav
         en:3.9.8-sapmachine-21
