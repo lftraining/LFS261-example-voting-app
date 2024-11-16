@@ -49,6 +49,25 @@ https://www.theserverside.com/blog/Coffee-Talk-Java-News-Stories-and-Opinions/Fi
       - [x] check: `docker inspect -f . maven:3.9.8-sapmachine-21`
       - [x] they both failed (#16/17) complaining about "Maven"
     - [ ] attempt update master: get merge first
+    ```
+    chilikm4n/LFS261-example-voting-app.git master
+      Enumerating objects: 8, done.
+      Counting objects: 100% (8/8), done.
+      Delta compression using up to 2 threads
+      Compressing objects: 100% (6/6), done.
+      Writing objects: 100% (6/6), 600 bytes | 600.00 KiB/s, done.
+      Total 6 (delta 4), reused 0 (delta 0), pack-reused 0
+      remote: Resolving deltas: 100% (4/4), completed with 2 local objects.
+      remote: error: GH006: Protected branch update failed for refs/heads/master.
+      remote: 
+      remote: - Changes must be made through a pull request.
+      To https://github.com/chilikm4n/LFS261-example-voting-app.git
+       ! [remote rejected] master -> master (protected branch hook declined)
+      error: failed to push some refs to 'https://github.com/chilikm4n/LFS261-example-voting-app.git'
+            
+    ```
+
+____
      
         ```
         avirtualrealitystory@ci-4nov24:~/06/lfx261/15Nov24a$ sudo docker inspect -f . mav
