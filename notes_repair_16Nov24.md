@@ -49,6 +49,10 @@ https://www.theserverside.com/blog/Coffee-Talk-Java-News-Stories-and-Opinions/Fi
       - [x] check: `docker inspect -f . maven:3.9.8-sapmachine-21`
       - [x] they both failed (#16/17) complaining about "Maven"
     - [ ] attempt update master: get merge first
+      - [16Nov24 15:45] requires a pull request; pr made
+      - [x] pulled images maven:3.9.8; results still show not able to do
+        - [ ] change Dockerfile
+        - [ ] change Jenkinsfile
     ```
     chilikm4n/LFS261-example-voting-app.git master
       Enumerating objects: 8, done.
