@@ -1,43 +1,41 @@
-pipeline {
-    agent any
-
-    tools{
-        maven 'Maven 3.9.8'
+pipeline { 
+    agent{ 
+       docker{ 
+         image 'maven:3.9.8-sapmachine-21' 
+         args '-v $HOME/.m2:/root/.m2' 
+       } 
+    } 
+    stages{ 
+        stage('build'){ 
+            steps{ 
+                echo 'building worker app' 
+                dir('worker'){ 
+                  sh 'mvn compile' 
+                } 
+            } 
+        } 
+        stage('test'){ 
+            steps{ 
+                echo 'running unit tests on worker app' 
+                dir('worker'){ 
+                  sh 'mvn clean test' 
+                } 
+            } 
+        } 
+        stage('package'){ 
+            steps{ 
+                echo 'packaging worker app into a jarfile'
+                dir('worker'){ 
+                  sh 'mvn package -DskipTests' 
+                  archiveArtifacts artifacts: '**/target/*.jar', fingerprint:  true 
+                } 
+            } 
+        } 
     }
+    post{ 
+        always{ 
+            echo 'the job is complete' 
 
-    stages{
-        stage("build"){
-            steps{
-                echo 'Compiling worker app'
-                dir('worker'){
-                    sh 'mvn compile'
-                }
-            }
-        }
-        stage("test"){
-            steps{
-                echo 'Running Unit Test on worker app'
-                dir('worker'){
-                    sh 'mvn clean test'
-                }
-            }
-        }
-
-            stage("package"){
-                steps{
-                    echo 'Packaging worker app'
-                    dir('worker'){
-                        sh 'mvn package -DskipTests'
-                    }
-                }
-            }
-        }
-        post{
-            always{
-                archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
-                
-                echo 'Building multibranch pipeline for worker is completed..'
-            }
-        }
     }
-
+  }
+}
