@@ -19,7 +19,7 @@ pipeline {
     }
     stage(test){
       when{
-        changeset "**/result/**
+        changeset "**/result/**"
       }
       steps{
         echo 'Running Unit Tests on results app..'
