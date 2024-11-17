@@ -17,24 +17,24 @@ pipeline {
         stage("test"){
             steps{
                 echo 'Running Unit Test on worker app'
-                // dir('worker'){
-                    // sh 'mvn clean test'
-                // }
+                dir('worker'){
+                    sh 'mvn clean test'
+                }
             }
         }
 
             stage("package"){
                 steps{
                     echo 'Packaging worker app'
-                    // dir('worker'){
-                        // sh 'mvn package -DskipTests'
-                    // }
+                    dir('worker'){
+                        sh 'mvn package -DskipTests'
+                    }
                 }
             }
         }
         post{
             always{
-                // archiveArtifactss artifacts: '**/target/*.jar', fingerprint: true
+                archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
                 
                 echo 'Building multibranch pipeline for worker is completed..'
             }
