@@ -39,7 +39,7 @@ pipeline {
         steps{
             echo 'Packaging worker app with docker'
             script{
-                docker.withRegistry('https://index.docker.io/v1/',
+                docker.withRegistry('https://index.docker.io/v2/',
                 'dockerlogin'){ 
                 def workerImage = 
                 docker.build(
