@@ -1,6 +1,6 @@
 pipeline {
   agent any
-
+20Nov24: conditional were previously; no functional changes were made
   tools{
     nodejs 'NodeJS 22.4.0'
   }
