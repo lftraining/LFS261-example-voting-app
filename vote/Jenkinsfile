@@ -2,6 +2,9 @@ pipeline {
     agent none
     stages{ 
         stage('build'){ 
+            when{
+                changeset "**/vote/**"
+            }
             agent{
                 docker{
                     image 'python:3.11-slim'
@@ -19,6 +22,9 @@ pipeline {
             } 
         } 
         stage('test'){ 
+            when{
+                changeset "**/vote/**"
+            }
            
             agent {
                 docker{
@@ -40,6 +46,10 @@ pipeline {
 
       stage('docker-package'){
           agent any
+            when{
+                branch 'master'
+                changeset "**/vote/**"
+            } 
          
           steps{
             echo 'Packaging wvoteorker app with docker'
