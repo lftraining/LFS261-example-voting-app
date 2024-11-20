@@ -1,43 +1,100 @@
-pipeline {
-    agent any
-
-    tools{
-        maven 'Maven 3.9.8'
-    }
-
-    stages{
-        stage("build"){
-            steps{
-                echo 'Compiling worker app'
-                dir('worker'){
-                    sh 'mvn compile'
+pipeline { 
+    // agent{ 
+       // docker{ 
+         // image 'Maven:3.9.8-sapmachine-21'
+        // these labs don't like the sapmachine 
+         // image "maven:3.9.8-sapmachine-21" 
+         // image 'maven:3.9.8' 
+         // args '-v $HOME/.m2:/root/.m2' 
+       // } 
+    // } 
+    agent none
+    
+    stages{ 
+        stage('build'){
+            when{
+                changeset "**/worker/**"
+            }
+            agent{
+                docker{
+                    image "maven:3.9.8-sapmachine-21" 
+                    args '-v $HOME/.m2:/root/.m2' 
+                    
                 }
             }
-        }
-        stage("test"){
-            steps{
-                echo 'Running Unit Test on worker app'
-                dir('worker'){
-                    sh 'mvn clean test'
-                }
-            }
-        }
 
-            stage("package"){
-                steps{
-                    echo 'Packaging worker app'
-                    dir('worker'){
-                        sh 'mvn package -DskipTests'
-                    }
-                }
+         
+            steps{ 
+                echo 'Compiling worker app' 
+                dir('worker'){ 
+                  sh 'mvn compile' 
+                } 
+            } 
+        } 
+        stage('test'){ 
+            when{
+                changeset "**/worker/**"
             }
-        }
-        post{
-            always{
-                archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
+            agent{
+                docker{
+                    image "maven:3.9.8-sapmachine-21" 
+                    args '-v $HOME/.m2:/root/.m2' 
+
+                    
+                }
                 
-                echo 'Building multibranch pipeline for worker is completed..'
+            }
+            steps{ 
+                echo 'running unit tests on worker app' 
+                dir('worker'){ 
+                  sh 'mvn clean test' 
+                } 
+            } 
+        } 
+        stage('package'){
+            when{
+                branch 'master'
+                changeset "**/worker/**"
+            } 
+            agent{
+                docker{
+                    image "maven:3.9.8-sapmachine-21" 
+                    args '-v $HOME/.m2:/root/.m2' 
+                    
+                }
+            }
+            steps{ 
+                echo 'packaging worker app'
+                dir('worker'){ 
+                  sh 'mvn package -DskipTests' 
+                  archiveArtifacts artifacts: '**/target/*.jar', fingerprint:  true 
+                } 
+            } 
+        } 
+    
+    stage('docker-package'){
+        agent any
+        when{
+            changeset "**/worker/**"
+            branch 'master'
+        }
+        steps{
+            echo 'Packaging worker app with docker'
+            script{
+                docker.withRegistry('https://index.docker.io/v1/',
+                'dockerlogin'){ 
+                def workerImage = docker.build("chiliphrosting/worker:v${env.BUILD_ID}", "./worker")
+                workerImage.push()
+                workerImage.push("latest")
+                }
             }
         }
     }
+    }
+    post{ 
+        always{ 
+            echo 'Building multibranch pipeline for worker is completed..' 
 
+    }
+  }
+}
