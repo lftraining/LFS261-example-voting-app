@@ -1,48 +1,31 @@
 pipeline { 
   agent any
   tools{
-    maven 'maven 3.9.8'
+    nodejs 'NodeJS 22.4.0'
   }  
   stages{
     stage("build"){
       when{
-        changeset "**/worker/**"
+        changeset "**/result/**"
       }
       steps{
-        echo 'Compiling worker app'
+        echo 'Compiling result app'
         dir('worker'){
-          sh 'mvn compile'
+          sh 'npm install'
         }
       }
     }
     stage("test"){
       when{
-        changeset "**/worker/**"
+        changeset "**/result/**"
       }
       steps{
-        echo 'Running Unit Tests on worker app'
-        dir('worker'){
-          sh 'mvn clean test'
+        echo 'Running Unit Tests on result app'
+        dir('restult'){
+          sh 'npm install'
+          sh 'npm test'
         }
       }
-    }
-    stage("package"){
-      when{
-        branch 'master'
-        changeset "**/worker/**"
-      }
-      steps{
-        echo 'Packaging worker app'
-        dir('worker'){
-          sh 'mvn package -DskipTests'
-          archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
-        }
-      } 
-    }
-  }
-  post{
-    always{
-      echo 'Building multibranch pipeline for worker is completed..'
     }
   }
 }
