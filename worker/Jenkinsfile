@@ -41,10 +41,7 @@ pipeline {
             script{
                 docker.withRegistry('https://index.docker.io/v2/',
                 'dockerlogin'){ 
-                def workerImage = 
-                docker.build(
-                    "chiliphrosting/worker:v${env.BUILD_ID}", 
-                    "./worker")
+                def workerImage = docker.build("chiliphrosting/worker:v${env.BUILD_ID}", "./worker")
                 workerImage.push()
                 workerImage.push("latest")
                 }
