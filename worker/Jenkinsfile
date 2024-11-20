@@ -2,7 +2,7 @@ pipeline {
     agent{ 
        docker{ 
          // image 'Maven:3.9.8-sapmachine-21' 
-         image 'maven:3.9.8-sapmachine-21' 
+         image "maven:3.9.8-sapmachine-21" 
          // image 'maven:3.9.8' 
          args '-v $HOME/.m2:/root/.m2' 
        } 
