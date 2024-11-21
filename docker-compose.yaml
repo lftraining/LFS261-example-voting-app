@@ -8,6 +8,7 @@ networks:
 services:
   vote:
     image: nachodev666/vote:latest
+    build: ./vote
     ports:
       - 5000:80
     depends_on:
@@ -37,7 +38,7 @@ services:
   result:
     image: nachodev666/result:latest
     ports:
-      - 5001:4000
+      - 5001:80
     depends_on:
       - db
     networks:
@@ -45,6 +46,7 @@ services:
 
   worker:
     image: nachodev666/worker:latest
+    build: ./worker
     depends_on:
       - redis
       - db
