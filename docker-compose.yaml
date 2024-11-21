@@ -26,7 +26,7 @@ services:
       - "./healthchecks:/healthchecks"
     healthcheck:
       test: /healthchecks/postgres.sh
-      intervals: "5s"
+      interval: "5s"
     networks:
       -instavote
   result:
