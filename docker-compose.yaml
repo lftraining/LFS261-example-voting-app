@@ -1,8 +1,10 @@
 volumes:
   db-data:
+
 networks:
   instavote:
     driver: bridge
+
 services:
   vote:
     image: chiliphrosting/vote:latest
@@ -12,10 +14,12 @@ services:
       - redis
     networks:
       - instavote
+
   redis:
     image: redis:alpine
     networks: 
       - instavote
+
   db:
     image: postgres:15-alpine
     environment:
@@ -28,7 +32,8 @@ services:
       test: /healthchecks/postgres.sh
       interval: "5s"
     networks:
-      -instavote
+      - instavote
+
   result:
     image: chiliphrosting/result:latest
     ports:
@@ -36,7 +41,8 @@ services:
     depends_on:
       - db
     networks:
-      -instavote
+      - instavote
+
   worker:
     image: chiliphrosting/worker:latest
     depends_on:
