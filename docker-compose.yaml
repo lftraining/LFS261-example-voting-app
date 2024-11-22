@@ -38,7 +38,7 @@ services:
   result:
     image: nachodev666/result:latest
     ports:
-      - 5001:80
+      - 5002:80
     depends_on:
       - db
     networks:
