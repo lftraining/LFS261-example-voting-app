@@ -1,0 +1,5 @@
+datetime.datetime.astimezone
+true
+faa94e534c2db0725fc3764ffbd4394e
+datetime.datetime.now
+datetime.tzinfo.__init__

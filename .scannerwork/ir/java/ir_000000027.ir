@@ -1,0 +1,16 @@
+
+\
+	orElseGetMjava.util.Optional#orElseGet(Ljava/util/function/Supplier;)Ljava/lang/Object;(]&thisf f("java.util.Optional3supplierf f(3"java.util.function.Supplier&thisf f("java.util.Optional3supplierf f(3"java.util.function.Supplier"vL
+J
+g g(".
+	isPresentjava.util.Optional#isPresent()Z(*2boolean8&"$
+g g( *g g(2g g( "P<
+:
+g g("&
+#get-field# value#get-field# value*2T
+g g("P<
+:
+g! g(O"&
+#dependent-value##dependent-value#*2T
+g! g(O"$*
+g g(P*Optional.java

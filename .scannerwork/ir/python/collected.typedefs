@@ -1,0 +1,26 @@
+
+objectNoneTypeobject9datetime.tzinfo*$
+__init__datetime.tzinfo.__init__èdatetime.datetimedatetime.date**
+
+astimezonedatetime.datetime.astimezone* 
+todaydatetime.datetime.today*
+nowdatetime.datetime.now*,
+fromordinaldatetime.datetime.fromordinal*"
+utcnowdatetime.datetime.utcnow*6
+utcfromtimestamp"datetime.datetime.utcfromtimestamp*&
+strptimedatetime.datetime.strptime*0
+fromtimestampdatetime.datetime.fromtimestamp*&
+__init__datetime.datetime.__init__*$
+combinedatetime.datetime.combine*$
+replacedatetime.datetime.replaceÕdatetime.date* 
+replacedatetime.date.replace*"
+__init__datetime.date.__init__*
+todaydatetime.date.today*,
+fromtimestampdatetime.date.fromtimestamp*0
+fromisocalendardatetime.date.fromisocalendarintobjectistrtyping.Sequencetyping.Collectiontyping.Containertyping.Iterableobjecttyping.Reversibledtyping.Sequencetyping.Collectiontyping.Containertyping.Iterableobjecttyping.Reversible@typing.Collectiontyping.Containertyping.Iterableobjecttyping.Containerobjecttyping.Iterableobject.typing.Reversibletyping.IterableobjectXbuiltins._StubIteratortyping.Iterable*+
+__init__builtins._StubIterator.__init__boolintobjectÄtest_frontend.VoteUnitTestunittest.case.TestCase*E
+test_version_is_set.test_frontend.VoteUnitTest.test_version_is_set*I
+test_home_status_code0test_frontend.VoteUnitTest.test_home_status_code*O
+test_processed_by_is_set3test_frontend.VoteUnitTest.test_processed_by_is_set*)
+setUp test_frontend.VoteUnitTest.setUpistrtyping.Sequencetyping.Collectiontyping.Containertyping.Iterableobjecttyping.Reversibledtyping.Sequencetyping.Collectiontyping.Containertyping.Iterableobjecttyping.Reversible@typing.Collectiontyping.Containertyping.Iterableobjecttyping.Containerobject
+objecttyping.Iterableobject.typing.Reversibletyping.Iterableobjectboolintobjectintobject#flask.scaffold.Scaffoldobject4flask.app.Flaskflask.scaffold.ScaffoldobjectNoneTypeobjectlogging.Filtererobject,logging.Loggerlogging.Filtererobject

@@ -1,0 +1,5 @@
+java.util.Optional#of(Ljava/lang/Object;)Ljava/util/Optional;
+true
+d7134f61f8d0c2f092aeef389ad935a9
+java.util.Optional#<init>(Ljava/lang/Object;)V
+java.util.Optional#instance-init#

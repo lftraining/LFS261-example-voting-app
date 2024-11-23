@@ -1,0 +1,23 @@
+
+(
+readjava.io.BufferedReader#read()I(I-1int65535int*this' '("java.io.BufferedReader*this' '("java.io.BufferedReader"¡C
+A
+) )('result"&
+#dependent-value##dependent-value#2int5
+3
+* *(%"
+
+#binop >=#
+#binop >=#*2boolean-
++
+* *(&"
+#assume##assume#*2void5
+3
++ +(("
+
+#binop <=#
+#binop <=#*2boolean-
++
++ +()"
+#assume##assume#*2void
+, ,(*BufferedReader.java

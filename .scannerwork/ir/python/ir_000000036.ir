@@ -1,0 +1,39 @@
+
+
+	get_redisapp.get_redis*
+0int
+5int"redis"str"ö2
+0
+ (""
+#unknown-value##unknown-value#7
+5
+ ("
+hasattrbuiltins.hasattr(*2bool+
+)
+ ("
+#bool##bool# *2bool3
+1
+ ("
+#unaryop !##unaryop !#*2bool+
+)
+ ("
+#bool##bool# *2bool"
+ ( * ("ñ
+
+ (=	"
+Redis*2
+0
+ (	
+""
+#unknown-value##unknown-value#:
+8
+ ("&
+#set-field# redis#set-field# redis*
+	"Å2
+0
+ (""
+#unknown-value##unknown-value#9
+7
+ ("&
+#get-field# redis#get-field# redis*
+ (*9/home/avirtualrealitystory/06/lfx261/15Nov24a/vote/app.py
