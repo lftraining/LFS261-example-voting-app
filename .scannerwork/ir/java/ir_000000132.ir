@@ -1,0 +1,21 @@
+
+4
+verify(com.google.common.base.Verify#verify(Z)V(#!
+expression (."boolean!
+expression (."boolean"V6
+4
+ ("
+#unaryop !##unaryop !#*2boolean"
+ ( * ("±[
+Y
+ (!"
+#new-object##new-object#2-com.google.common.base.Verify$VerifyExceptionf
+d
+ (!"Q
+#instance-init#<com.google.common.base.Verify$VerifyException#instance-init#(*8X
+V
+ (!"C
+<init>7com.google.common.base.Verify$VerifyException#<init>()V(*82
+ (""
+
+ (*Verify.java

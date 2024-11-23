@@ -1,0 +1,14 @@
+
+U
+
+ofNullableEjava.util.Optional#ofNullable(Ljava/lang/Object;)Ljava/util/Optional;(valueV+ V(2"TvalueV+ V(2"T"ñ@
+>
+X X( "
+#new-object##new-object#2java.util.OptionalK
+I
+X X( "6
+#instance-init#!java.util.Optional#instance-init#(*8P
+N
+X X( ":
+<init>.java.util.Optional#<init>(Ljava/lang/Object;)V(*8
+X X(!*Optional.java

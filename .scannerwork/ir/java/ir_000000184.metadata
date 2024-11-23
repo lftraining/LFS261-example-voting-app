@@ -1,0 +1,5 @@
+com.google.common.base.Preconditions#checkState(ZLjava/lang/String;J)V
+true
+380d951f0a3f199d20d026ca5f81d434
+com.google.common.base.Preconditions$FakeIllegalStateException#<init>()V
+com.google.common.base.Preconditions$FakeIllegalStateException#instance-init#

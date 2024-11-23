@@ -1,0 +1,161 @@
+
+
+nowdatetime.datetime.now(ˆ
+1int31int12int24int 60int9999int
+0int+1000000inttzG G("inttzG G("®A
+?
+H H(year"&
+#dependent-value##dependent-value#2int,
+*
+J J("
+
+#binop >=#
+#binop >=#*'
+%
+J J("
+#assume##assume#*,
+*
+K K("
+
+#binop <=#
+#binop <=#*'
+%
+K K( 	"
+#assume##assume#*B
+@
+L L(
+month"&
+#dependent-value##dependent-value#2int,
+*
+M M("
+
+#binop >=#
+#binop >=#*
+'
+%
+M M("
+#assume##assume#*,
+*
+N N("
+
+#binop <=#
+#binop <=#*
+'
+%
+N N("
+#assume##assume#*@
+>
+O O(day"&
+#dependent-value##dependent-value#2int,
+*
+P P("
+
+#binop >=#
+#binop >=#*'
+%
+P P("
+#assume##assume#*,
+*
+Q Q("
+
+#binop <=#
+#binop <=#*'
+%
+Q Q("
+#assume##assume#*A
+?
+R R(hour"&
+#dependent-value##dependent-value#2int,
+*
+S S("
+
+#binop >=#
+#binop >=#*'
+%
+S S("
+#assume##assume#**
+(
+T T("
+	#binop <#	#binop <#*'
+%
+T T("
+#assume##assume#*C
+A
+U U(minute"&
+#dependent-value##dependent-value#2int,
+*
+V V("
+
+#binop >=#
+#binop >=#*'
+%
+V V("
+#assume##assume#**
+(
+W W(!"
+	#binop <#	#binop <#* '
+%
+W W(""
+#assume##assume#*!C
+A
+X X(#second"&
+#dependent-value##dependent-value#2int,
+*
+Y Y($"
+
+#binop >=#
+#binop >=#*#'
+%
+Y Y(%"
+#assume##assume#*$*
+(
+Z Z(&"
+	#binop <#	#binop <#*# '
+%
+Z Z('"
+#assume##assume#*&H
+F
+[ [("(microsecond"&
+#dependent-value##dependent-value#2int,
+*
+\ \(#)"
+
+#binop >=#
+#binop >=#*('
+%
+\ \($*"
+#assume##assume#*)*
+(
+] ]((,"
+	#binop <#	#binop <#*(+'
+%
+] ]()-"
+#assume##assume#*,A
+?
+^ ^(.fold"&
+#dependent-value##dependent-value#2int,
+*
+_ _(/"
+
+#binop <=#
+#binop <=#*.'
+%
+_ _(0"
+#assume##assume#*/,
+*
+` `(1"
+
+#binop <=#
+#binop <=#*.'
+%
+` `(2"
+#assume##assume#*1?
+=
+a a([3"
+#new-object##new-object#2datetime.datetimeP
+N
+a a([4"(
+__init__datetime.datetime.__init__(*
+3
+#(.2NoneType8
+a a([3*datetime.py

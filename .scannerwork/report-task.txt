@@ -1,0 +1,7 @@
+organization=chilikm4n
+projectKey=chilikm4n_LFS261-example-voting-app
+serverUrl=https://sonarcloud.io
+serverVersion=8.0.0.57943
+dashboardUrl=https://sonarcloud.io/dashboard?id=chilikm4n_LFS261-example-voting-app
+ceTaskId=AZNZorUkQJ1xPTFe0Qs7
+ceTaskUrl=https://sonarcloud.io/api/ce/task?id=AZNZorUkQJ1xPTFe0Qs7
