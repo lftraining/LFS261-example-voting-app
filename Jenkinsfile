@@ -60,34 +60,41 @@ pipeline {
 
     stage('Sonarqube') {
       agent any
-      when{
+      when {
         branch 'master'
       }
-      // tools {
-       // jdk "JDK11" // the name you have given the JDK installation in Global Tool Configuration
-     // }
 
-      environment{
+      environment {
         sonarpath = tool 'SonarScanner'
       }
 
       steps {
-            echo 'Running Sonarqube Analysis..'
-            withSonarQubeEnv('sonar-instavote') {
-              sh "${sonarpath}/bin/sonar-scanner -Dproject.settings=sonar-project.properties -Dorg.jenkinsci.plugins.durabletask.BourneShellScript.HEARTBEAT_CHECK_INTERVAL=86400"
-            }
+        echo 'Running Sonarqube Analysis..'
+        withSonarQubeEnv('sonar-instavote') {
+          sh "${sonarpath}/bin/sonar-scanner -Dproject.settings=sonar-project.properties -Dorg.jenkinsci.plugins.durabletask.BourneShellScript.HEARTBEAT_CHECK_INTERVAL=86400"
+        }
       }
     }
 
-
     stage("Quality Gate") {
-        steps {
-            timeout(time: 1, unit: 'HOURS') {
-                // Parameter indicates whether to set pipeline to UNSTABLE if Quality Gate fails
-                // true = set pipeline to UNSTABLE, false = don't
-                waitForQualityGate abortPipeline: true
-            }
+      steps {
+        timeout(time: 1, unit: 'HOURS') {
+          waitForQualityGate abortPipeline: true
         }
+      }
+    }
+
+    // Aquí se agrega el nuevo stage de Trigger deployment
+    stage('Trigger deployment') {
+      agent any
+      environment {
+        def GIT_COMMIT = "${env.GIT_COMMIT}"
+      }
+      steps {
+        echo "${GIT_COMMIT}"
+        echo "triggering deployment"
+        build job: 'deployment', parameters: [string(name: 'DOCKERTAG', value: GIT_COMMIT)]
+      }
     }
   }
 
