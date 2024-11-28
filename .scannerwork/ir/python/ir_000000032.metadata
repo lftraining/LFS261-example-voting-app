@@ -1,0 +1,6 @@
+test_frontend.VoteUnitTest.test_home_status_code
+false
+3f9d2d37a7c82f227883a3255214326e
+==
+assertEqual
+get

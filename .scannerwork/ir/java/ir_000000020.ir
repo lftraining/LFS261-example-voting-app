@@ -1,0 +1,39 @@
+
+)
+nextIntjava.util.Random#nextInt(I)I(L
+0int$this ("java.util.Randombound ("int$this ("java.util.Randombound ("int"U5
+3
+ ("
+
+#binop <=#
+#binop <=#*2boolean"
+ ( * ("P
+N
+ (*"
+#new-object##new-object#2"java.lang.IllegalArgumentException[
+Y
+ (*"F
+#instance-init#1java.lang.IllegalArgumentException#instance-init#(*8M
+K
+ (*"8
+<init>,java.lang.IllegalArgumentException#<init>()V(*82
+ (+"¡C
+A
+ ('result"&
+#dependent-value##dependent-value#2int5
+3
+ ($	"
+
+#binop <=#
+#binop <=#*2boolean-
++
+ (%
+"
+#assume##assume#*	2void3
+1
+ ('"
+	#binop <#	#binop <#*2boolean-
++
+ (("
+#assume##assume#*2void
+ (*Random.java

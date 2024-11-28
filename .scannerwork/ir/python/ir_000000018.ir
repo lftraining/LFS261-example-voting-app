@@ -1,0 +1,70 @@
+
+
+todaydatetime.date.today(>9999int
+1int12int31int"int"èA
+?
+ (year"&
+#dependent-value##dependent-value#2int,
+*
+ ("
+
+#binop >=#
+#binop >=#*'
+%
+ ("
+#assume##assume#*,
+*
+ ("
+
+#binop <=#
+#binop <=#*'
+%
+ ( "
+#assume##assume#*B
+@
+ (	month"&
+#dependent-value##dependent-value#2int,
+*
+ (
+"
+
+#binop >=#
+#binop >=#*	'
+%
+ ("
+#assume##assume#*
+,
+*
+ ("
+
+#binop <=#
+#binop <=#*	'
+%
+ ("
+#assume##assume#*@
+>
+ (day"&
+#dependent-value##dependent-value#2int,
+*
+ ("
+
+#binop >=#
+#binop >=#*'
+%
+ ("
+#assume##assume#*,
+*
+ ("
+
+#binop <=#
+#binop <=#*'
+%
+ ("
+#assume##assume#*;
+9
+ (%"
+#new-object##new-object#2datetime.dateF
+D
+ (%"$
+__init__datetime.date.__init__(*	2NoneType8
+ (%*datetime.py

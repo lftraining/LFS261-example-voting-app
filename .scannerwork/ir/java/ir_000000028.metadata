@@ -1,0 +1,4 @@
+java.util.Optional#orElse(Ljava/lang/Object;)Ljava/lang/Object;
+true
+9887adba4ac8a0fffcd455e0e057bc78
+java.util.Optional#isPresent()Z

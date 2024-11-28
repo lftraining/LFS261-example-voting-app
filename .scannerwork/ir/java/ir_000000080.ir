@@ -1,0 +1,24 @@
+
+$
+exitjava.lang.Runtime#exit(I)V(B%this	 	("java.lang.Runtimestatus	 	("int%this	 	("java.lang.Runtimestatus	 	("int"Õ=
+;
+
+
+ 
+("
+#new-object##new-object#2java.lang.ErrorH
+F
+
+
+ 
+("3
+#instance-init#java.lang.Error#instance-init#(*8:
+8
+
+
+ 
+("%
+<init>java.lang.Error#<init>()V(*82
+
+ 
+(*Runtime.java

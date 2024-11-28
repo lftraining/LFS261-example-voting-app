@@ -1,0 +1,10 @@
+/home/avirtualrealitystory/06/lfx261/15Nov24a/vote/app.#__main__
+false
+a39f1577fe541fb80df052cbc989a6af
+flask.app.Flask.__init__
+logging.getLogger
+os.getenv
+socket.gethostname
+==
+extend
+setLevel

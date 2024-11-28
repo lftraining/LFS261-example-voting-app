@@ -1,0 +1,21 @@
+
+n
+checkArgument[com.google.common.base.Preconditions#checkArgument(ZLjava/lang/String;[Ljava/lang/Object;)V(ç!
+expression,# ,(5"boolean4errorMessageTemplate,7 ,(R"java.lang.String2errorMessageArgs,T ,(|"java.lang.Object[]!
+expression,# ,(5"boolean4errorMessageTemplate,7 ,(R"java.lang.String2errorMessageArgs,T ,(|"java.lang.Object[]"V6
+4
+- -("
+#unaryop !##unaryop !#*2boolean"
+- -( *- -("Ìo
+m
+. .(."
+#new-object##new-object#2Acom.google.common.base.Preconditions$FakeIllegalArgumentExceptionz
+x
+. .(."e
+#instance-init#Pcom.google.common.base.Preconditions$FakeIllegalArgumentException#instance-init#(*8l
+j
+. .(."W
+<init>Kcom.google.common.base.Preconditions$FakeIllegalArgumentException#<init>()V(*82
+. .(/"
+
+0 0(*Preconditions.java

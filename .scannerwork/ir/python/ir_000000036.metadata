@@ -1,0 +1,4 @@
+app.get_redis
+false
+83c0b1096c9ddedb9e2caaa74af9c483
+builtins.hasattr

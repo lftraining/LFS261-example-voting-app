@@ -1,0 +1,5 @@
+java.io.BufferedReader#<init>(Ljava/io/Reader;I)V
+true
+a9294f05868e2134fa40177a65a56118
+java.lang.IllegalArgumentException#<init>()V
+java.lang.IllegalArgumentException#instance-init#
