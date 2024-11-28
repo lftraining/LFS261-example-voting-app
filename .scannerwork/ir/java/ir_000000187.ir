@@ -1,0 +1,33 @@
+
+h
+
+checkStateXcom.google.common.base.Preconditions#checkState(ZLjava/lang/String;[Ljava/lang/Object;)V(”#
+expression
+Ã  Ã(2"boolean6errorMessageTemplate
+Ã4 Ã(]"java.lang.String5errorMessageArgsÃ_ Ã(‡"java.lang.Object[]#
+expression
+Ã  Ã(2"boolean6errorMessageTemplate
+Ã4 Ã(]"java.lang.String5errorMessageArgsÃ_ Ã(‡"java.lang.Object[]"\8
+6
+
+Ä Ä("
+#unaryop !##unaryop !#*2boolean "
+
+Ä Ä( *
+Ä Ä("ìn
+l
+
+Å Å(+"
+#new-object##new-object#2>com.google.common.base.Preconditions$FakeIllegalStateExceptiony
+w
+
+Å Å(+"b
+#instance-init#Mcom.google.common.base.Preconditions$FakeIllegalStateException#instance-init#(*8k
+i
+
+Å Å(+"T
+<init>Hcom.google.common.base.Preconditions$FakeIllegalStateException#<init>()V(*82
+
+Å Å(,"
+
+Ç Ç(*Preconditions.java

@@ -1,0 +1,51 @@
+
+2
+fromisocalendardatetime.date.fromisocalendar(n
+1int31int	12intyear( ((week( (("weekday($ ((+"intyear( ((week( (("weekday($ ((+"şE
+C
+) )((month"&
+#dependent-value##dependent-value#*2int,
+*
+* *("
+
+#binop >=#
+#binop >=#*'
+%
+* *("
+#assume##assume#*,
+*
++ +(
+"
+
+#binop <=#
+#binop <=#*	'
+%
++ +("
+#assume##assume#*
+D
+B
+, ,(/day"&
+#dependent-value##dependent-value#*2int,
+*
+- -("
+
+#binop >=#
+#binop >=#*'
+%
+- -("
+#assume##assume#*,
+*
+. .("
+
+#binop <=#
+#binop <=#*'
+%
+. .("
+#assume##assume#*;
+9
+/ /(%"
+#new-object##new-object#2datetime.dateF
+D
+/ /(%"$
+__init__datetime.date.__init__(*2NoneType8
+/ /(%*datetime.py

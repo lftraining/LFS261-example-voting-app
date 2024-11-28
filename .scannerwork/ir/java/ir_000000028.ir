@@ -1,0 +1,13 @@
+
+K
+orElse?java.util.Optional#orElse(Ljava/lang/Object;)Ljava/lang/Object;(@&thisb b("java.util.Optionalotherb b("T&thisb b("java.util.Optionalotherb b("T"vL
+J
+c c(".
+	isPresentjava.util.Optional#isPresent()Z(*2boolean8&"$
+c c( *c c(2c c( "P<
+:
+c c("&
+#get-field# value#get-field# value*2T
+c c("
+c! c(&"$*
+c c('*Optional.java

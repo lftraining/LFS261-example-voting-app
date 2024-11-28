@@ -1,0 +1,15 @@
+
+`
+orElseThrowOjava.util.Optional#orElseThrow(Ljava/util/function/Supplier;)Ljava/lang/Object;(f&thisq! q(,"java.util.Optional<exceptionSupplierq- q(T"java.util.function.Supplier&thisq! q(,"java.util.Optional<exceptionSupplierq- q(T"java.util.function.Supplier"hH
+F
+r r("*
+isEmptyjava.util.Optional#isEmpty()Z(*2boolean8"
+r r( *r r("r^
+\
+s s(#">
+get3java.util.function.Supplier#get()Ljava/lang/Object; (*2	!capture!82
+s s($"P<
+:
+u u("&
+#get-field# value#get-field# value*2T
+u u(*Optional.java

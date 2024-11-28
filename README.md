@@ -1,5 +1,9 @@
+filename: README.md
+
 Example Voting App
 =========
+
+This is a sample voting app.
 
 Getting started
 ---------------
@@ -57,4 +61,8 @@ Architecture
 Note
 ----
 
-The voting application only accepts one vote per client. It does not register votes if a vote has already been submitted from a client.
+
+<!-- [![Build Status](http://34.48.26.32:8080/buildStatus/icon?job=instavote%2Fworker-build)](http://34.48.26.32:8080/job/instavote/job/worker-build/) -->
+
+<!-- [![Build Status](http://34.48.26.32:8080/buildStatus/icon?job=instavote&subject=Unittest%2Fworker-test)](http://34.48.26.32:8080/job/instavote/job/worker-test/) -->
+

@@ -1,0 +1,4 @@
+java.util.Optional#filter(Ljava/util/function/Predicate;)Ljava/util/Optional;
+true
+ded486df659b85ce455e9d086db8581b
+java.util.Optional#isEmpty()Z

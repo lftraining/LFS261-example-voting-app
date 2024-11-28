@@ -1,0 +1,16 @@
+
+
+lenbuiltins.len(D"__collection_size"str
+0ints (	"ints (	"Ç^
+\
+ (7result">
+#get-field# __collection_size#get-field# __collection_size*2int,
+*
+ ("
+
+#binop >=#
+#binop >=#*'
+%
+ ("
+#assume##assume#*
+ (*builtins.py

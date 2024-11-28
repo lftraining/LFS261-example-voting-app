@@ -1,0 +1,21 @@
+
+C
+orElseThrow2java.util.Optional#orElseThrow()Ljava/lang/Object;(R("No value present"java.lang.String&thisj j("java.util.Optional&thisj j("java.util.Optional"hH
+F
+k k("*
+isEmptyjava.util.Optional#isEmpty()Z(*2boolean8"
+k k( *k k("ùN
+L
+l l(:"
+#new-object##new-object#2 java.util.NoSuchElementExceptionY
+W
+l l(:"D
+#instance-init#/java.util.NoSuchElementException#instance-init#(*8^
+\
+l l(:"H
+<init><java.util.NoSuchElementException#<init>(Ljava/lang/String;)V(*82
+l l(;"P<
+:
+n n("&
+#get-field# value#get-field# value*2T
+n n(*Optional.java

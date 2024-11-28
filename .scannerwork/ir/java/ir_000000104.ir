@@ -1,0 +1,25 @@
+
+E
+BufferedReader1java.io.BufferedReader#<init>(Ljava/io/Reader;I)V(q
+0int*this	 ("java.io.BufferedReader in (!"java.io.Readersz# ()"int*this	 ("java.io.BufferedReader in (!"java.io.Readersz# ()"int"U5
+3
+ ("
+
+#binop <=#
+#binop <=#*2boolean"
+ ( * ("P
+N
+ (*"
+#new-object##new-object#2"java.lang.IllegalArgumentException[
+Y
+ (*"F
+#instance-init#1java.lang.IllegalArgumentException#instance-init#(*8M
+K
+ (*"8
+<init>,java.lang.IllegalArgumentException#<init>()V(*82
+ (+"F4
+2
+ (	" 
+#set-field# in#set-field# in*
+
+ (*BufferedReader.java

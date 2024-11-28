@@ -1,0 +1,21 @@
+
+]
+checkArgumentJcom.google.common.base.Preconditions#checkArgument(ZLjava/lang/String;II)V(‡!
+expressionh# h(5"boolean4errorMessageTemplateh7 h(R"java.lang.Stringp1hT h(Z"intp2h\ h(b"int!
+expressionh# h(5"boolean4errorMessageTemplateh7 h(R"java.lang.Stringp1hT h(Z"intp2h\ h(b"int"V6
+4
+i i("
+#unaryop !##unaryop !#*2boolean"
+i i( *i i("ío
+m
+j j(."
+#new-object##new-object#2Acom.google.common.base.Preconditions$FakeIllegalArgumentExceptionz
+x
+j j(."e
+#instance-init#Pcom.google.common.base.Preconditions$FakeIllegalArgumentException#instance-init#(*8l
+j
+j j(."W
+<init>Kcom.google.common.base.Preconditions$FakeIllegalArgumentException#<init>()V(*82
+j j(/"
+
+l l(*Preconditions.java
