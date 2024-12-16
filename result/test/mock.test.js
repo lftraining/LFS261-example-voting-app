@@ -1,4 +1,4 @@
-const expect = require('chai').expect;
+oconst expect = require('chai').expect;
 
 describe('mock test 1', () => {
   it('unit test 1', () => {
@@ -38,3 +38,8 @@ describe('mock test 6', () => {
   });
 });
 
+describe('mock test 7', () => {
+  it('unit test 7', () => {
+    expect(true).to.be.true;
+  });
+});
