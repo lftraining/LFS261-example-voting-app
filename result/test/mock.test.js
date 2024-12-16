@@ -1,4 +1,4 @@
-oconst expect = require('chai').expect;
+const expect = require('chai').expect;
 
 describe('mock test 1', () => {
   it('unit test 1', () => {
