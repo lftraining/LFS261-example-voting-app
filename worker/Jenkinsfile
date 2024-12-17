@@ -1,8 +1,10 @@
 pipeline{
     agent any
+
     tools{
-        maven'maven3.9.8'
+      maven 'maven3.9.8'
     }
+    
     stages {
         stage("build") {
             steps {
@@ -23,6 +25,7 @@ pipeline{
             }
         }
     }
+    
     post {
         always {
             echo 'Building multibranch pipeline for worker is completed..'
