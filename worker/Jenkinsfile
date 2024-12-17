@@ -1,33 +1,33 @@
-pipeline{
+pipeline {
     agent any
-
-    tools{
-      maven 'maven3.9.8'
-    }
     
-    stages {
+    tools{
+        maven 'maven 3.9.8'
+    }
+
+    stages{
         stage("build") {
-            steps {
+            steps{
                 echo 'Compiling worker app'
                 dir('worker') {
-                    sh 'mvncompile'
+                    sh 'mvn compile'
                 }
             }
         }
         stage("test") {
-            steps {
+            steps{
                 echo 'Running Unit Tests on worker app'
             }
         }
         stage("package") {
-            steps {
-                echo 'Packagingworkerapp'
+            steps{
+                echo 'Packaging worker app'
             }
         }
     }
-    
-    post {
-        always {
+
+    post{
+        always{
             echo 'Building multibranch pipeline for worker is completed..'
         }
     }
