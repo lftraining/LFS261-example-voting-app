@@ -59,4 +59,4 @@ Note
 
 The voting application only accepts one vote per client. It does not register votes if a vote has already been submitted from a client.
 
-[![Build Status](http://jenkins.dsktver.ru:8080/buildStatus/icon?job=instavote%2Fworker-build&build=10)](http://jenkins.dsktver.ru:8080/job/instavote/job/worker-build/10/)
+[![Build Status](http://jenkins.dsktver.ru:8080/buildStatus/icon?job=instavote%2Fworker-build)](http://jenkins.dsktver.ru:8080/job/instavote/job/worker-build/)
