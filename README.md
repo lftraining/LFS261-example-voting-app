@@ -1,7 +1,7 @@
 Example Voting App
 =========
 
-add line to test Jenkins webhook
+[![Build Status](http://35.224.41.69:8080/buildStatus/icon?job=instavote%2Fworker-build)](http://35.224.41.69:8080/job/instavote/job/worker-build/)
 
 Getting started
 ---------------
