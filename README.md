@@ -45,7 +45,7 @@ The vote interface is then available on port 31000 on each host of the cluster, 
 Architecture
 -----
 
-![Architecture diagram]
+![Architecture diagram](architecture.png)
 
 * A Python webapp which lets you vote between two options
 * A Redis queue which collects new votes
