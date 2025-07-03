@@ -1,3 +1,5 @@
+package worker;
+
 import org.junit.jupiter.api.Test;
  
 class UnitWorker {
