@@ -147,7 +147,7 @@ pipeline {
     stage('vote-build') {
       agent {
         docker {
-          image 'python:2.7.16-slim'
+          image 'python:3.11-slim'
           args '--user root'
         }
 
@@ -167,7 +167,7 @@ pipeline {
     stage('vote-test') {
       agent {
         docker {
-          image 'python:2.7.16-slim'
+          image 'python:3.11-slim'
           args '--user root'
         }
 
