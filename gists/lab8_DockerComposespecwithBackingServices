@@ -1,0 +1,19 @@
+services:
+  vote:
+    image: xxxxx/vote:latest
+    ports:
+      - 5000:80
+
+  redis:
+    image: redis:alpine
+
+  db:
+    image: postgres:9.4
+
+  result:
+    image: xxxxx/result:latest
+    ports:
+      - 5001:4000
+
+  worker:
+    image: xxxxx/worker:latest
