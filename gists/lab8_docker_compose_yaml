@@ -1,0 +1,13 @@
+services:
+  vote:
+    image: xxxxx/vote:latest
+    ports:
+      - 5000:80
+
+  result:
+    image: xxxxx/result:latest
+    ports:
+      - 5001:80
+
+  worker:
+    image: xxxxx/worker:latest 
