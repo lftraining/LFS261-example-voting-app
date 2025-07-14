@@ -24,10 +24,10 @@ pipeline{
                 echo 'Packaging worker app'
 	    }
 	}
-	post{
+    }
+    post{
 	    always{
 	    echo 'Building multibranch pipeline for worker is completed...'
 	    }
 	}
-    }
 }
