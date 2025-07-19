@@ -31,6 +31,19 @@ pipeline {
                     archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true }
             }
         }
+		stage('docker package'){
+			agent any
+			steps{
+				echo 'Packaging worker app with docker'
+				script{
+					docker.withRegistry('https://index.docker.io/vi/, 'dockerlogin'){ 
+						def workerImage = docker.build("emmiduh93/worker:v${env.BUILD_ID}", "./worker")
+						workerImage.push()
+						workerImage.push("latest")
+					}
+				}
+			}
+		}
     }
     post {
         always {
