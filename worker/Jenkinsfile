@@ -9,7 +9,11 @@ pipeline {
             agent {
                 docker {
                     image 'maven:3.8.6-openjdk-11-slim'
-                    args "-v ${env.HOME}/.m2:/root/.m2"
+<<<<<<< HEAD
+                    args "-v /var/jenkins_home/.m2:/root/.m2"
+=======
+                    args "-v /var/jenkins_home/.m2:/root/.m2"
+>>>>>>> feature/dockerfiles
                 }
             }
             steps {
@@ -27,7 +31,11 @@ pipeline {
             agent {
                 docker {
                     image 'maven:3.8.6-openjdk-11-slim'
-                    args "-v ${env.HOME}/.m2:/root/.m2"
+<<<<<<< HEAD
+                    args "-v /var/jenkins_home/.m2:/root/.m2"
+=======
+                    args "-v /var/jenkins_home/.m2:/root/.m2"
+>>>>>>> feature/dockerfiles
                 }
             }
             steps {
@@ -46,7 +54,11 @@ pipeline {
             agent {
                 docker {
                     image 'maven:3.8.6-openjdk-11-slim'
-                    args "-v ${env.HOME}/.m2:/root/.m2"
+<<<<<<< HEAD
+                    args "-v /var/jenkins_home/.m2:/root/.m2"
+=======
+                    args "-v /var/jenkins_home/.m2:/root/.m2"
+>>>>>>> feature/dockerfiles
                 }
             }
             steps {
