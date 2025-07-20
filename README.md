@@ -1,3 +1,5 @@
+2 TRY
+
 Example Voting App
 =========
 
