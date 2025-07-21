@@ -24,10 +24,23 @@ pipeline {
         }
         stage('package') {
             steps {
-                echo 'packaging worker app into a jarfile'
+                echo 'packaging worker app into a jar file'
                 dir('worker') {
                     sh 'mvn package -DskipTests'
                     archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
+                }
+            }
+        }
+        stage('docker-package') {
+            agent any
+            steps {
+                echo 'Packaging worker app with docker'
+                script {
+                    docker.withRegistry('https://index.docker.io/v1/', 'dockerlogin') {
+                        def workerImage = docker.build("norahns/worker:${env.BUILD_ID}", "./worker")
+                        workerImage.push()
+                        workerImage.push("latest")
+                    }
                 }
             }
         }
