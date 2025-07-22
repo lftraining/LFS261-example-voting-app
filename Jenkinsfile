@@ -105,7 +105,7 @@ pipeline {
                 dir('vote'){ 
                    
                         sh "pip install -r requirements.txt"
-                        sh 'nosetests -v'
+                        sh 'nose2 -v'
                         
                         
                 } 
