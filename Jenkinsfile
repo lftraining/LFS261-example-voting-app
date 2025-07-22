@@ -3,9 +3,9 @@ pipeline {
 
     stages {
         stage("worker_build") {
-            when {
-                changeset "**/worker/**"
-            }
+//            when {
+//                changeset "**/worker/**"
+//            }
             agent {
                 docker {
                     image 'maven:3.8.6-openjdk-11-slim'
@@ -22,9 +22,9 @@ pipeline {
 
 		
 		stage('result_build'){
-				when{
-					changeset "**/result/**"
-				}
+//				when{
+//					changeset "**/result/**"
+//				}
 				agent{
 					docker{
 						image 'node:24.4.0-alpine3.22'
@@ -57,9 +57,9 @@ pipeline {
         }
 
         stage("worker_test") {
-            when {
-                changeset "**/worker/**"
-            }
+//            when {
+//                changeset "**/worker/**"
+//            }
             agent {
                 docker {
                     image 'maven:3.8.6-openjdk-11-slim'
@@ -75,9 +75,9 @@ pipeline {
         }
 		
 		stage('result_test'){
-			when {
-				changeset "**/result/**"
-			}
+//			when {
+//				changeset "**/result/**"
+//			}
 			agent{
 				docker{
                     image 'node:24.4.0-alpine3.22'
@@ -113,10 +113,10 @@ pipeline {
         }
 
         stage("worker_package") {
-            when {
-                branch 'master'
-                changeset "**/worker/**"
-            }
+//            when {
+//                branch 'master'
+//                changeset "**/worker/**"
+//            }
             agent {
                 docker {
                     image 'maven:3.8.6-openjdk-11-slim'
@@ -167,10 +167,10 @@ pipeline {
         }
 
 		stage("worker_docker_package") {
-            when {
-                branch 'master'
-                changeset "**/worker/**"
-            }
+//            when {
+//                branch 'master'
+//                changeset "**/worker/**"
+//            }
             agent any
             steps {
                 echo 'Packaging worker app with Docker...'
@@ -187,9 +187,9 @@ pipeline {
 		
 		stage('Deploy to dev'){
 			agent any
-			when {
-				branch 'master'
-			}
+//			when {
+//				branch 'master'
+//			}
 			steps{
 				echo 'Deploy instavote app with docker compose'
 				sh 'docker compose up -d'
