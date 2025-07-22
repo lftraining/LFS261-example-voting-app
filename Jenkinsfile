@@ -20,8 +20,8 @@ pipeline {
             }
         }
 
-		stages {
-			stage('result_build'){
+		
+		stage('result_build'){
 				when{
 					changeset "**/result/**"
 				}
@@ -32,11 +32,11 @@ pipeline {
 				}
 				steps{
 					echo 'Compiling result app..'
-					dir('worker'){
+					dir('result'){
 						sh 'npm install'
 					}
 				}
-			}
+		}
 
 		stage('vote_build'){ 
             agent{
@@ -74,7 +74,7 @@ pipeline {
             }
         }
 		
-		stage(result_test){
+		stage('result_test'){
 			when {
 				changeset "**/result/**"
 			}
@@ -99,7 +99,7 @@ pipeline {
                     image 'python:3.11-slim'
                     args '--user root'
                     }
-                    }
+                }
             steps{ 
                 echo 'Running Unit Tests on vote app.' 
                 dir('vote'){ 
@@ -139,8 +139,8 @@ pipeline {
                 echo 'Packaging result app with docker'
                 script{
                     docker.withRegistry('https://index.docker.io/v1/', 'dockerlogin') {
-                    // ./vote is the path to the Dockerfile that Jenkins will find from the Github repo
-                    def resultImage = docker.build("xxxx/result:v${env.BUILD_ID}", "./result")
+                    // ./result is the path to the Dockerfile that Jenkins will find from the Github repo
+                    def resultImage = docker.build("emmiduh93/result:v${env.BUILD_ID}", "./result")
                     resultImage.push()
                     resultImage.push("${env.BRANCH_NAME}")
                     resultImage.push("latest")
@@ -157,7 +157,7 @@ pipeline {
                 script{
                     docker.withRegistry('https://index.docker.io/v1/', 'dockerlogin') {
                     // ./vote is the path to the Dockerfile that Jenkins will find from the Github repo
-                    def voteImage = docker.build("xxxx/vote:v${env.BUILD_ID}", "./vote")
+                    def voteImage = docker.build("emmiduh93/vote:v${env.BUILD_ID}", "./vote")
                     voteImage.push()
                     voteImage.push("${env.BRANCH_NAME}")
                     voteImage.push("latest")
@@ -185,7 +185,7 @@ pipeline {
             }
         }
 		
-		stage{
+		stage('Deploy to dev'){
 			agent any
 			when {
 				branch 'master'
