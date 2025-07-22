@@ -8,8 +8,9 @@ networks:
 services:
   vote:
     image: norahns/vote:latest
+    build: ./vote
     ports:
-      - "5000:80"
+      - 5000:80
     depends_on:
       - redis
     networks:
@@ -26,18 +27,19 @@ services:
       POSTGRES_USER: "postgres"
       POSTGRES_PASSWORD: "postgres"
     volumes:
-      - db-data:/var/lib/postgresql/data
-      - ./healthchecks:/healthchecks
+      - "db-data:/var/lib/postgresql/data"
+      - "./healthchecks:/healthchecks"
     healthcheck:
       test: /healthchecks/postgres.sh
-      interval: 5s
+      interval: "5s"
     networks:
       - instavote
 
   result:
     image: norahns/result:latest
+    build: ./result
     ports:
-      - "5001:80"
+      - 5001:80
     depends_on:
       - db
     networks:
@@ -45,6 +47,7 @@ services:
 
   worker:
     image: norahns/worker:latest
+    build: ./worker
     depends_on:
       - redis
       - db
