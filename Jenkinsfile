@@ -202,15 +202,18 @@ pipeline {
 
     stage('vote-docker-package') {
       agent any
+      when {
+        changeset '**/vote/**'
+        branch 'master'
+      }
       steps {
         echo 'Packaging vote app with docker'
         script {
+          def sanitizedBranch = env.BRANCH_NAME.replace('/', '-')
           docker.withRegistry('https://index.docker.io/v1/', 'dockerlogin') {
-            // ./vote is the path to the Dockerfile that Jenkins will find from the Github repo
-            def voteImage = docker.build("norahns/vote:${env.GIT_COMMIT}", "./vote")
+            def voteImage = docker.build("norahns/vote:${env.BUILD_ID}", "./vote")
             voteImage.push()
-            voteImage.push("${env.BRANCH_NAME}")
-            voteImage.push("latest")
+            voteImage.push(sanitizedBranch)  // Now uses "feature-monopipe" instead
           }
         }
 
@@ -225,7 +228,7 @@ pipeline {
       }
       steps {
         echo 'Deploy instavote app with docker compose'
-        sh 'docker-compose up -d'
+        sh 'docker compose up -d'
       }
     }
     
