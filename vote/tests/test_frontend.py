@@ -1,7 +1,11 @@
-from vote.app import app
-from flask import url_for
+import sys
+import os
 import unittest
+from flask import url_for
 
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
+from vote.app import app
 
 class VoteUnitTest(unittest.TestCase):
 
