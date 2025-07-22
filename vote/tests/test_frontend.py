@@ -1,4 +1,4 @@
-from app import app
+from vote.app import app
 from flask import url_for
 import unittest
 
