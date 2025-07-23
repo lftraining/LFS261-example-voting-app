@@ -104,7 +104,7 @@ pipeline {
                 dir('vote'){ 
                    
                         sh "pip install -r requirements.txt"
-                        sh 'PYTHONPATH=.. pytest vote/tests/'
+                        sh 'PYTHONPATH=.. pytest tests/'
                         
                         
                 } 
