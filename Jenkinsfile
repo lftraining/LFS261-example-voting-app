@@ -105,7 +105,7 @@ pipeline {
 			                echo 'Running Unit Tests on vote app.' 
 			                dir('vote'){ 
 			                        sh "pip install -r requirements.txt"
-                        			sh 'python3 -m unittest discover -s tests'
+                        			sh 'PYTHONPATH=.. python3 -m unittest discover -s tests'
                         		} 
 			        }
 		        }
