@@ -141,7 +141,7 @@ pipeline {
                     // ./result is the path to the Dockerfile that Jenkins will find from the Github repo
                     def resultImage = docker.build("emmiduh93/result:v${env.BUILD_ID}", "./result")
                     resultImage.push()
-                    resultImage.push("${env.BRANCH_NAME.replaceAll(/, -)}")
+                    resultImage.push("${env.BRANCH_NAME.replaceAll('/', '-').replaceAll(/, -)}")
                     resultImage.push("latest")
                     }
                 }
@@ -158,7 +158,7 @@ pipeline {
                     // ./vote is the path to the Dockerfile that Jenkins will find from the Github repo
                     def voteImage = docker.build("emmiduh93/vote:v${env.BUILD_ID}", "./vote")
                     voteImage.push()
-                    voteImage.push("${env.BRANCH_NAME.replaceAll(/, -)}")
+                    voteImage.push("${env.BRANCH_NAME.replaceAll('/', '-').replaceAll(/, -)}")
                     voteImage.push("latest")
                     }
                 }
@@ -177,7 +177,7 @@ pipeline {
                     docker.withRegistry('https://index.docker.io/v1/', 'dockerlogin') {
                         def workerImage = docker.build("emmiduh93/worker:v${env.BUILD_ID}", "./worker")
                         workerImage.push()
-                        workerImage.push("${env.BRANCH_NAME.replaceAll(/, -)}")
+                        workerImage.push("${env.BRANCH_NAME.replaceAll('/', '-').replaceAll(/, -)}")
                         workerImage.push("latest")
                     }
                 }
