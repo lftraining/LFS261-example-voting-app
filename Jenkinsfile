@@ -51,8 +51,6 @@ pipeline {
                 dir('vote'){
             
                         sh "pip install -r requirements.txt"
-						sh "PYTHONPATH=$PWD pytest tests/"
-
                 } 
             } 
         }
@@ -106,7 +104,7 @@ pipeline {
                 dir('vote'){ 
                    
                         sh "pip install -r requirements.txt"
-                        sh 'pytest'
+                        sh 'PYTHONPATH=. pytest vote/tests/'
                         
                         
                 } 
