@@ -9,4 +9,4 @@ RUN apt-get update -qq && apt-get install -qy \
 RUN yarn global add phantomjs-prebuilt
 ADD . /app
 WORKDIR /app
-CMD ./e2e.sh
+CMD ./tests.sh
