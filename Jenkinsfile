@@ -76,7 +76,7 @@ pipeline {
         echo 'Packaging worker app with docker'
         script {
           docker.withRegistry('https://index.docker.io/v1/', 'dockerlogin') {
-            def workerImage = docker.build("norahns/worker:v${env.BUILD_ID}", './worker')
+            def workerImage = docker.build("xxxxx/worker:v${env.BUILD_ID}", './worker')
             workerImage.push()
             workerImage.push("${env.BRANCH_NAME}")
             workerImage.push('latest')
@@ -135,7 +135,7 @@ pipeline {
         echo 'Packaging result app with docker'
         script {
           docker.withRegistry('https://index.docker.io/v1/', 'dockerlogin') {
-            def resultImage = docker.build("norahns/result:v${env.BUILD_ID}", './result')
+            def resultImage = docker.build("xxxxx/result:v${env.BUILD_ID}", './result')
             resultImage.push()
             resultImage.push("${env.BRANCH_NAME}")
             resultImage.push('latest')
@@ -185,72 +185,38 @@ pipeline {
       }
     }
 
-    stage('vote integration'){ 
-    agent any 
-    when{ 
-      changeset "**/vote/**" 
-      branch 'master' 
-    } 
-    steps{ 
-      echo 'Running Integration Tests on vote app' 
-      dir('vote'){ 
-        sh 'sh integration_test.sh' 
-      } 
-    } 
-} 
-
+    stage('vote-integration') {
+      agent any
+      when {
+      changeset '**/vote/**'
+      branch 'master'
+      }
+      steps {
+      echo 'Running Integration Tests on vote app'
+      dir('vote') {
+        sh 'sh integration_test.sh'
+      }
+      }
+    }
 
     stage('vote-docker-package') {
       agent any
-      when {
-        changeset '**/vote/**'
-        branch 'master'
-      }
       steps {
         echo 'Packaging vote app with docker'
         script {
-          def sanitizedBranch = env.BRANCH_NAME.replace('/', '-')
           docker.withRegistry('https://index.docker.io/v1/', 'dockerlogin') {
-            def voteImage = docker.build("norahns/vote:${env.BUILD_ID}", "./vote")
+            // ./vote is the path to the Dockerfile that Jenkins will find from the Github repo
+            def voteImage = docker.build("xxxxx/vote:${env.GIT_COMMIT}", "./vote")
             voteImage.push()
-            voteImage.push(sanitizedBranch)  // Now uses "feature-monopipe" instead
+            voteImage.push("${env.BRANCH_NAME}")
+            voteImage.push("latest")
           }
         }
 
       }
     }
 
-    stage('Sonarqube') {
-      agent any
-      when{
-        branch 'master'
-      }
-      // tools {
-       // jdk "JDK11" // the name you have given the JDK installation in Global Tool Configuration
-     // }
 
-      environment{
-        sonarpath = tool 'SonarScanner'
-      }
-
-      steps {
-            echo 'Running Sonarqube Analysis..'
-            withSonarQubeEnv('sonar-instavote') {
-              sh "${sonarpath}/bin/sonar-scanner -Dproject.settings=sonar-project.properties -Dorg.jenkinsci.plugins.durabletask.BourneShellScript.HEARTBEAT_CHECK_INTERVAL=86400"
-            }
-      }
-    }
-
-
-    stage("Quality Gate") {
-        steps {
-            timeout(time: 1, unit: 'HOURS') {
-                // Parameter indicates whether to set pipeline to UNSTABLE if Quality Gate fails
-                // true = set pipeline to UNSTABLE, false = don't
-                waitForQualityGate abortPipeline: true
-            }
-        }
-    }
     stage('deploy to dev') {
       agent any
       when {
@@ -258,7 +224,7 @@ pipeline {
       }
       steps {
         echo 'Deploy instavote app with docker compose'
-        sh 'docker compose up -d'
+        sh 'docker-compose up -d'
       }
     }
     
