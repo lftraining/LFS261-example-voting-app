@@ -123,4 +123,25 @@ class Worker {
       System.exit(1);
     }
   }
+static class FizzBuzz {
+    public static void generate(int limit) {
+      for (int i = 1; i <= limit; i++) {
+        if (i % 3 == 0 && i % 5 == 0) {
+          System.out.println("FizzBuzz");
+        } else if (i % 3 == 0) {
+          System.out.println("Fizz");
+        } else if (i % 5 == 0) {
+          System.out.println("Buzz");
+        } else {
+          System.out.println(i);
+        }
+      }
+    }
+
+    // Example of how it could be called, not part of the main application flow
+    public static void main(String[] args) {
+        System.out.println("FizzBuzz demonstration:");
+        generate(20); // Generate FizzBuzz up to 20
+    }
+  }
 }
