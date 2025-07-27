@@ -24,7 +24,7 @@ echo "Initial vote count: $initial_count"
 
 # Submit first vote
 echo "Submitting vote (a)..."
-curl -sS -X POST --data "vote=a" http://vote
+curl -sS -X POST --data "vote=a" http://vote > /dev/null
 sleep 2
 
 # Get vote count after submission
