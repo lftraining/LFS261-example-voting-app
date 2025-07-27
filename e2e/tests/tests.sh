@@ -2,8 +2,9 @@
 
 # Function to get current vote count
 get_vote_count() {
-    phantomjs render.js "http://result:80/" | grep -oE '[0-9]+' | head -n 1
+    phantomjs render.js "http://result:80/" | grep -oE '[0-9]+ votes' | grep -oE '[0-9]+'
 }
+
 
 # ... Later in script ...
 
