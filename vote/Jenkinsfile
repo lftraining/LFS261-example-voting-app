@@ -38,22 +38,22 @@ pipeline {
             } 
         } 
 
-      stage('docker-package'){
-          agent any
-         
-          steps{
-            echo 'Packaging wvoteorker app with docker'
-            script{
-              docker.withRegistry('https://index.docker.io/v1/', 'dockerlogin') {
-                  // ./vote is the path to the Dockerfile that Jenkins will find from the Github repo
-                  def voteImage = docker.build("xxxx/vote:v${env.BUILD_ID}", "./vote")
-                  voteImage.push()
-                  voteImage.push("${env.BRANCH_NAME}")
-                  voteImage.push("latest")
-              }
+        stage('docker-package') {
+            agent any
+            when {
+                branch 'master'
+                changeset "**/vote/**"
             }
-          }
-      }
+            steps {
+                script {
+                    docker.withRegistry('https://index.docker.io/v1/', 'dockerlogin') {
+                        def voteImage = docker.build("norahns/vote:v${env.BUILD_ID}", "./vote")
+                        voteImage.push()
+                        voteImage.push("latest")
+                    }
+                }
+            }
+        }
 
     } 
     post {
