@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # Function to get current vote count
 get_vote_count() {
