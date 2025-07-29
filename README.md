@@ -58,5 +58,3 @@ Note
 ----
 
 The voting application only accepts one vote per client. It does not register votes if a vote has already been submitted from a client.
-
-[![Build Status](http://34.168.222.175:8080/buildStatus/icon?job=instavote%2Fworder-build)](http://34.168.222.175:8080/job/instavote/job/worder-build/)
