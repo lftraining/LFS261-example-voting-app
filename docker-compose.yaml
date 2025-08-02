@@ -1,0 +1,44 @@
+services:
+    vote:
+        image: emmiduh93/vote:latest
+        build: ./vote
+        depends_on:
+            - redis
+        networks:
+            - instavote
+        ports:
+            - 5000:80
+    result:
+        image: emmiduh93/result:latest
+        build: ./vote
+        ports:
+            - 5001:4000
+        depends_on:
+            - db
+        networks:
+            - instavote
+    worker:
+        image: emmiduh93/worker:latest
+        build: ./vote
+        depends_on:
+            - redis
+            - db
+        networks:
+            - instavote
+    redis:
+        networks:
+            - instavote
+        image: redis:alpine
+    db:
+        image: postgres:9.4
+        volumes:
+            - "db-data:/var/lib/postgresql/data"
+        networks:
+            - instavote
+        environment:
+            - POSTGRES_HOST_AUTH_METHOD=trust
+volumes:
+    db-data:
+networks:
+    instavote:
+        driver: bridge

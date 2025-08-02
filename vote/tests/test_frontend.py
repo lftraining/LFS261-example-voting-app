@@ -1,7 +1,6 @@
-from app import app
-from flask import url_for
 import unittest
-
+from flask import url_for
+from vote.app import app
 
 class VoteUnitTest(unittest.TestCase):
 
