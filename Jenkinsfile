@@ -2,248 +2,214 @@ pipeline {
     agent none
 
     stages {
-    	stage('Build Stage'){
-    	parallel{
-    		stage("worker_build") {
-//			when {
-//				changeset "**/worker/**"
-//			}
-                	agent {
-	  	              docker {
-  		                  image 'maven:3.8.6-openjdk-11-slim'
-  		                  args "-v /var/jenkins_home/.m2:/root/.m2"
-  		              }
-  		        }
-                	steps {
-	             		echo 'Compiling worker app...'
-        	        	dir('worker') {
-        	        		sh 'mvn compile'
-        	        	}
-        	        }
-        	}
-		
-		stage('result_build'){
-//			when{
-//				changeset "**/result/**"
-//			}
-			agent{
-				docker{
-					image 'node:24.4.0-alpine3.22'
-				}
-			}
-			steps{
-				echo 'Compiling result app..'
-				dir('result'){
-					sh 'npm install'
-				}
-			}
-		}
-
-		stage('vote_build'){ 
-		        agent{
-        		        docker{
-        		        	image 'python:3.11-slim'
-	           	 		args '--user root'
-        		        }
-	                }
-
-            		steps{ 
-		                echo 'Compiling vote app.' 
-		                dir('vote'){
-		                        sh "pip install -r requirements.txt"
-                		} 
-		        } 
-	        }
-	}    	
-    	}
-    	stage('Test Stage'){
-    		parallel{
-    			stage("worker_test") {
-//              		when {
-//                			changeset "**/worker/**"
-//              		}
-			        agent {
-        	        		docker {
-        	            			image 'maven:3.8.6-openjdk-11-slim'
-			                        args "-v /var/jenkins_home/.m2:/root/.m2"
-			                }
-			        }
-		                steps {
-        	        		echo 'Running Unit Tests on worker app...'
-			                dir('worker') {
-        	        	    		sh 'mvn clean test'
-			                }
-    		                }
-		        }
-		
-			stage('result_test'){
-//				when {
-//					changeset "**/result/**"
-//				}
-				agent{
-					docker{
-        		    	            image 'node:24.4.0-alpine3.22'
-			                }
-        	    		}
-				steps{
-					echo 'Running Unit Tests n result app..'
-					dir('result'){
-						sh 'npm install'
-						sh 'npm test'
-					}
-				}
-			}
-
-			stage('vote_test'){ 
-			        agent {
-			                docker{
-		    	                    image 'python:3.11-slim'
-			                    args '--user root'
-			                }
-		                }
-			        steps{ 
-			                echo 'Running Unit Tests on vote app.' 
-			                dir('vote'){ 
-			                        sh "pip install -r requirements.txt"
-                        			sh 'PYTHONPATH=.. python3 -m unittest discover -s tests'
-                        		} 
-			        }
-		        }
-    		}
-            
-            stage('vote integration'){
-                agent any
-                when {
-                    changeset "**/vote/**" 
- //                   branch 'master'
+        stage('Build Stage') {
+            parallel {
+                stage("worker_build") {
+                    agent {
+                        docker {
+                            image 'maven:3.8.6-openjdk-11-slim'
+                            args "-v /var/jenkins_home/.m2:/root/.m2"
+                        }
+                    }
+                    steps {
+                        echo 'Compiling worker app...'
+                        dir('worker') {
+                            sh 'mvn compile'
+                        }
+                    }
                 }
-                steps{
-                    echo 'Running Integration Tests on vote app'
-                    dir('vote'){
-                        sh './integration_test.sh'
+
+                stage('result_build') {
+                    agent {
+                        docker {
+                            image 'node:24.4.0-alpine3.22'
+                        }
+                    }
+                    steps {
+                        echo 'Compiling result app...'
+                        dir('result') {
+                            sh 'npm install'
+                        }
+                    }
+                }
+
+                stage('vote_build') {
+                    agent {
+                        docker {
+                            image 'python:3.11-slim'
+                            args '--user root'
+                        }
+                    }
+                    steps {
+                        echo 'Compiling vote app...'
+                        dir('vote') {
+                            sh 'pip install -r requirements.txt'
+                        }
                     }
                 }
             }
-    	}
-        
-       	stage("worker_package") {
-//         	when {
-//			    branch 'master'
-//         		changeset "**/worker/**"
-//         	}
-		    agent {
-           		docker {
-           			image 'maven:3.8.6-openjdk-11-slim'
-		            args "-v /var/jenkins_home/.m2:/root/.m2"
-           		}
-           	}
-	        steps {
-           	    echo 'Packaging worker app...'
-               	dir('worker') {
-		            sh 'mvn package -DskipTests'
-           		    archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
-           		}
-	    	}
-	    }
-			
-		stage ("Docker Package Stage"){
-			parallel{
-				stage('result_docker_package'){
-		    	    agent any
-			        steps{
-	              		echo 'Packaging result app with docker'
-	                	script{
-			               	docker.withRegistry('https://index.docker.io/v1/', 'dockerlogin') {
-	            		    	// ./result is the path to the Dockerfile that Jenkins will find from the Github repo
-	            		    	def resultImage = docker.build("emmiduh93/result:v${env.BUILD_ID}", "./result")
-	            		    	resultImage.push()
-	               			    resultImage.push("${env.BRANCH_NAME.replaceAll('/', '-')}")
-				               	resultImage.push("latest")
-			           	    }
-	                    }
-		            }
-				}
-
-		        stage('vote_docker_package'){
-		            agent any           
-		            steps{
-        		        echo 'Packaging vote app with docker'
-        		        script{
-        		            docker.withRegistry('https://index.docker.io/v1/', 'dockerlogin') {
-        			            // ./vote is the path to the Dockerfile that Jenkins will find from the Github repo
-        			            def voteImage = docker.build("emmiduh93/vote:v${env.BUILD_ID}", "./vote")
-        			            voteImage.push()
-        			            voteImage.push("${env.BRANCH_NAME.replaceAll('/', '-')}")
-        			            voteImage.push("latest")
-        		            }
-		                }
-		            }
-        		}
-
-				stage("worker_docker_package") {
-//  	            when {
-//  		            branch 'master'
-//      	            changeset "**/worker/**"
-//            		}
-		            agent any
-        		    steps {
-        		        echo 'Packaging worker app with Docker...'
-        		        script {
-        		            docker.withRegistry('https://index.docker.io/v1/', 'dockerlogin') {
-        		                def workerImage = docker.build("emmiduh93/worker:v${env.BUILD_ID}", "./worker")
-        		                workerImage.push()
-        		                workerImage.push("${env.BRANCH_NAME.replaceAll('/', '-')}")
-        		                workerImage.push("latest")
-		                    }
-                		}
-		            }
-		        }
-        	}
         }
 
-        stage ('Sonarqube'){
-//            agent any
-  //          when {
-    //            branch 'master'
-    //        }
-            
-            environment {
-                sonarpath = tool 'SonarScanner'
+        stage('Test Stage') {
+            parallel {
+                stage("worker_test") {
+                    agent {
+                        docker {
+                            image 'maven:3.8.6-openjdk-11-slim'
+                            args "-v /var/jenkins_home/.m2:/root/.m2"
+                        }
+                    }
+                    steps {
+                        echo 'Running Unit Tests on worker app...'
+                        dir('worker') {
+                            sh 'mvn clean test'
+                        }
+                    }
+                }
+
+                stage('result_test') {
+                    agent {
+                        docker {
+                            image 'node:24.4.0-alpine3.22'
+                        }
+                    }
+                    steps {
+                        echo 'Running Unit Tests on result app...'
+                        dir('result') {
+                            sh 'npm install'
+                            sh 'npm test'
+                        }
+                    }
+                }
+
+                stage('vote_test') {
+                    agent {
+                        docker {
+                            image 'python:3.11-slim'
+                            args '--user root'
+                        }
+                    }
+                    steps {
+                        echo 'Running Unit Tests on vote app...'
+                        dir('vote') {
+                            sh 'pip install -r requirements.txt'
+                            sh 'PYTHONPATH=.. python3 -m unittest discover -s tests'
+                        }
+                    }
+                }
+                stage('vote integration'){
+                    agent any
+                    when{
+                        changeset "**/vote/**"
+                        branch 'master'
+                    }
+                    steps{
+                        echo 'Running Integration Tests on vote app'
+                        dir('vote'){
+                            sh 'sh integration_test.sh'
+                        }
+                    }
+                }
+
             }
-            
-            steps {
-                echo 'Running SOnarqube Analysis..'
-                withSonarQubeEnv('sonar-instavote'){
-                    sh "${sonarpath}/bin/sonar-scanner -Dproject.settings=sonar-project.properties -Dorg.jenkinsci.plugins.durabletask.BourneShellScript.HEARTBEAT_CHECK_INTERVAL=86400"
+        }
+
+        stage("worker_package") {
+            agent {
+                docker {
+                    image 'maven:3.8.6-openjdk-11-slim'
+                    args "-v /var/jenkins_home/.m2:/root/.m2"
                 }
             }
-        }   
-        
-        stage ("Qualiy Gate"){
+            steps {
+                echo 'Packaging worker app...'
+                dir('worker') {
+                    sh 'mvn package -DskipTests'
+                    archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
+                }
+            }
+        }
+
+        stage("Docker Package Stage") {
+            parallel {
+                stage('result_docker_package') {
+                    agent any
+                    steps {
+                        echo 'Packaging result app with Docker...'
+                        script {
+                            docker.withRegistry('https://index.docker.io/v1/', 'dockerlogin') {
+                                def resultImage = docker.build("emmiduh93/result:v${env.BUILD_ID}", "./result")
+                                resultImage.push()
+                                resultImage.push("${env.BRANCH_NAME.replaceAll('/', '-')}")
+                                resultImage.push("latest")
+                            }
+                        }
+                    }
+                }
+
+                stage('vote_docker_package') {
+                    agent any
+                    steps {
+                        echo 'Packaging vote app with Docker...'
+                        script {
+                            docker.withRegistry('https://index.docker.io/v1/', 'dockerlogin') {
+                                def voteImage = docker.build("emmiduh93/vote:v${env.BUILD_ID}", "./vote")
+                                voteImage.push()
+                                voteImage.push("${env.BRANCH_NAME.replaceAll('/', '-')}")
+                                voteImage.push("latest")
+                            }
+                        }
+                    }
+                }
+
+                stage("worker_docker_package") {
+                    agent any
+                    steps {
+                        echo 'Packaging worker app with Docker...'
+                        script {
+                            docker.withRegistry('https://index.docker.io/v1/', 'dockerlogin') {
+                                def workerImage = docker.build("emmiduh93/worker:v${env.BUILD_ID}", "./worker")
+                                workerImage.push()
+                                workerImage.push("${env.BRANCH_NAME.replaceAll('/', '-')}")
+                                workerImage.push("latest")
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        stage('Sonarqube') {
             agent any
             when {
                 branch 'master'
             }
-
+            environment {
+                sonarpath = tool 'SonarScanner'
+            }
             steps {
-                timeout(time: 1, unit: 'HOURS') {
-                    // Parameter indicates whether to set pipeline to UNSTABLE if Quality Gate fails
-                    // true = set pipeline to UNSTABLE, false = don't
-                    waitForQualityGate abortPipeline: true
+                echo 'Running Sonarqube Analysis...'
+                withSonarQubeEnv('sonar-instavote') {
+                    sh "${sonarpath}/bin/sonar-scanner -Dproject.settings=sonar-project.properties"
                 }
-            }   
+            }
         }
-		
-		stage('Deploy to dev'){
-			agent any
-//			when {
-//				branch 'master'
-//			}
-			steps{
-				echo 'Deploy instavote app with docker compose'
-				sh 'docker compose up -d'
-			}
-		}
+
+//        stage("Quality Gate") {
+  //          steps {
+    //            timeout(time: 1, unit: 'HOURS') {
+      //              waitForQualityGate abortPipeline: true
+        //        }
+          //  }
+//        }
+
+        stage('Deploy to dev') {
+            agent any
+            steps {
+                echo 'Deploying instavote app with Docker Compose...'
+                sh 'docker compose up -d'
+            }
+        }
     }
 
     post {
@@ -264,5 +230,4 @@ pipeline {
         }
     }
 }
-
 
