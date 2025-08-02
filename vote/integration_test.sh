@@ -1,5 +1,6 @@
 #!/bin/bash
 
+
 cd integration
 
 echo "I: Creating environment to run  integration tests..."
